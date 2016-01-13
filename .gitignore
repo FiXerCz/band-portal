@@ -2,6 +2,7 @@
 capybara-*.html
 .rspec
 /log
+!/log/.keep
 /tmp
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -33,3 +34,5 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+/.idea
