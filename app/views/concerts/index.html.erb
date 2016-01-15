@@ -1,0 +1,40 @@
+<%- model_class = Concert -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><%= model_class.human_attribute_name(:id) %></th>
+    <th><%= model_class.human_attribute_name(:location) %></th>
+    <th><%= model_class.human_attribute_name(:capacity) %></th>
+    <th><%= model_class.human_attribute_name(:from_date) %></th>
+    <th><%= model_class.human_attribute_name(:to_date) %></th>
+    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @concerts.each do |concert| %>
+      <tr>
+        <td><%= link_to concert.id, concert_path(concert) %></td>
+        <td><%= concert.location %></td>
+        <td><%= concert.capacity %></td>
+        <td><%= concert.from_date %></td>
+        <td><%=l concert.to_date %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_concerts_path(concert), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      concert_path(concert),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+

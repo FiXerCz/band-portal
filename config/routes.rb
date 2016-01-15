@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :bands
+  resources :concerts
   get 'home/index'
   get 'home' => 'home#index'
 
