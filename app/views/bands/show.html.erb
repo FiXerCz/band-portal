@@ -10,6 +10,12 @@
   <dd><%= @band.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
   <dd><%= @band.active %></dd>
+  <dt><strong>Band members:</strong></dt>
+  <dd>
+    <% @band.band_roles.each do |band_member| %>
+      <%= band_member.user.email %> <em>(<%= band_member.role %>)</em><br />
+    <% end %>
+  </dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

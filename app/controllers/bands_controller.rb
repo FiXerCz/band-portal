@@ -17,7 +17,7 @@ class BandsController < ApplicationController
   # GET /bands/new
   def new
     @band = Band.new
-    @role = BandRole.new
+    @band.band_roles.build
   end
 
   # GET /bands/1/edit
@@ -28,13 +28,12 @@ class BandsController < ApplicationController
   # POST /bands.json
   def create
     @band = Band.new(band_params)
-
-    @role = BandRole.new(params.require(:band_role).permit(:role))
-    @role.user = current_user
-    @role.band = @band
+    @band.band_roles.each do |role|
+      role.user = current_user
+    end
 
     respond_to do |format|
-      if @band.save && @role.save
+      if @band.save
         format.html { redirect_to @band, notice: 'Band was successfully created.' }
       else
         format.html { render :new }
@@ -74,6 +73,6 @@ class BandsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params.require(:band).permit(:title, :description, :active)
+      params.require(:band).permit(:title, :description, :active, band_roles_attributes: [ :id, :role ])
     end
 end
