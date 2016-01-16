@@ -1,16 +1,16 @@
-class CommentsController < ApplicationController
+class CommentController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def new
-    @comment = Comments.new
+    @comment = Comment.new
   end
 
   def edit
-    @comment = Comments.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def create
-    @comment = Comments.new(comment_params)
+    @comment = Comment.new(comment_params)
 
     respond_to do |format|
       if @comment.save
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
   private
 
   def set_comment
-    @comment = Comments.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def comment_params

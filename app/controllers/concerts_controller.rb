@@ -19,7 +19,7 @@ class ConcertsController < ApplicationController
   end
 
   def create
-    @concert = Concert.new(comment_params)
+    @concert = Concert.new(concert_params)
 
     respond_to do |format|
       if @concert.save
@@ -42,7 +42,11 @@ class ConcertsController < ApplicationController
 
   private
 
+  def set_concert
+    @concert = Concert.find(params[:id])
+  end
+
   def concert_params
-    params.require(:post).permit(:location, :capacity, :from_date, :to_date, :price)
+    params.require(:concert).permit(:title, :location, :capacity, :from_date, :to_date, :price)
   end
 end
