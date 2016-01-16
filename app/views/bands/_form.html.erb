@@ -39,7 +39,7 @@
     </div>
   <% else %>
     <%= f.hidden_field(:active,  :value => true) %>
-    <%= fields_for(@role) do |r| %>
+    <%= f.fields_for :band_roles do |r| %>
       <div class="form-group">
         <%= r.label :role, 'Your role in the band', :class => 'control-label col-lg-2' %>
         <div class="col-lg-10">
