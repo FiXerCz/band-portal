@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160116114649) do
   end
 
   create_table "concerts", force: :cascade do |t|
+    t.integer  "user_id",    null: false
     t.string   "title",      null: false
     t.string   "location",   null: false
     t.integer  "capacity"

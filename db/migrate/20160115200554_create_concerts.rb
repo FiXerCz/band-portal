@@ -1,6 +1,7 @@
 class CreateConcerts < ActiveRecord::Migration
   def change
     create_table :concerts do |t|
+      t.integer :user_id,  null: false
       t.string  :title, null: false
       t.string :location, null: false
       t.integer :capacity

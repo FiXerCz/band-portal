@@ -1,6 +1,7 @@
 class ConcertsController < ApplicationController
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
     @concerts = Concert.all
@@ -19,7 +20,7 @@ class ConcertsController < ApplicationController
 
   def create
     @concert = Concert.new(concert_params)
-
+    @concert.user_id = current_user.id
     respond_to do |format|
       if @concert.save
         format.html { redirect_to @concert, notice: 'Concert was successfully created.' }
