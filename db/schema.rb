@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115204144) do
+ActiveRecord::Schema.define(version: 20160116112227) do
+
+  create_table "band_roles", force: :cascade do |t|
+    t.string  "role",    null: false
+    t.integer "band_id"
+    t.integer "user_id"
+  end
+
+  add_index "band_roles", ["band_id"], name: "index_band_roles_on_band_id"
+  add_index "band_roles", ["user_id"], name: "index_band_roles_on_user_id"
 
   create_table "bands", force: :cascade do |t|
     t.string   "title"
