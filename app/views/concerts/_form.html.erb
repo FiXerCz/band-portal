@@ -57,6 +57,15 @@
       </div>
       <%=f.error_span(:price) %>
   </div>
+  <div class="form-group">
+      <%= f.label :performing_bands, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <% bands_array = Band.all.map { |band| [band.title, band.id] } %>
+        <%= select_tag(:performing_bands, options_for_select(bands_array), {:multiple => true, :class => "bands-select form-control" }) %>
+      </div>
+      <%=f.error_span(:performing_bands) %>
+  </div>
+
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

@@ -1,7 +1,9 @@
 <%- model_class = Concert -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-  <%= link_to t('.new', :default => t("helpers.links.new")), new_concert_path, :class => 'btn btn-primary' %>
+  <% if can? :create, Concert %>
+    <%= link_to t('.new', :default => t("helpers.links.new")), new_concert_path, :class => 'btn btn-primary' %>
+  <% end %>
 </div>
 
 <table class="table table-striped concerts">
