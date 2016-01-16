@@ -28,3 +28,18 @@
     font-size: 2rem;
   }
 }
+
+.concert-title {
+  font-size: 18px;
+  color: #006698 !important;
+}
+
+.concert-title:hover,
+.concert-title:focus,
+.concerts a:hover,
+.concerts a:focus {
+  background-color: transparent;
+  text-decoration: none;
+  color: #565656 !important;
+
+}
