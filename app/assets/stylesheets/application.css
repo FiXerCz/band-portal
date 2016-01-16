@@ -23,15 +23,53 @@ body {
     height:400px;
     background-image: url(header.png);
     background-size: cover;
+    -webkit-box-shadow: inset 0px -1px 5px 0px rgba(77,77,77,1);
+    -moz-box-shadow: inset 0px -1px 5px 0px rgba(77,77,77,1);
+    box-shadow: inset 0px -1px 5px 0px rgba(77,77,77,1);
+}
+
+.header .header-text {
+    color: white;
+    font-size: 30px;
+    padding-top: 46px;
+    padding-left: 16px;
 }
 
 .navbar {
     margin-bottom: 0px;
 }
 
+.navbar-default {
+    border-color: transparent;
+}
+
+.btn-primary {
+    color: white !important;
+    background-color: #004c7a;
+    border-color: #004671;
+}
+
+.navbar-nav > li > .btn-primary {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 7px;
+}
+
+.btn-primary:focus,
+.btn-primary:hover,
+.navbar-default .navbar-nav > li > .btn-primary:hover,
+.navbar-default .navbar-nav > li > .btn-primary:focus {
+    background-color: #006299 !important;
+    border-color: #006698;
+}
+
 .menu {
-    background-color: #ffc69e;
-    box-shadow: gray 0px -2px 3px;
+    background-color: #E3B393;/*#ffc69e;*/
+}
+
+.menu .navbar-nav > li > a {
+    color: white;
+    font-size: 15px;
 }
 
 .page-header {

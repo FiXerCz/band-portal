@@ -1,5 +1,7 @@
 class BandsController < ApplicationController
   before_action :set_band, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /bands
   # GET /bands.json
@@ -69,6 +71,6 @@ class BandsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params[:band]
+      params.require(:band).permit(:title, :description, :active)
     end
 end
