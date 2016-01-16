@@ -17,6 +17,7 @@ class BandsController < ApplicationController
   # GET /bands/new
   def new
     @band = Band.new
+    @role = BandRole.new
   end
 
   # GET /bands/1/edit
@@ -28,13 +29,15 @@ class BandsController < ApplicationController
   def create
     @band = Band.new(band_params)
 
+    @role = BandRole.new(params.require(:band_role).permit(:role))
+    @role.user = current_user
+    @role.band = @band
+
     respond_to do |format|
-      if @band.save
+      if @band.save && @role.save
         format.html { redirect_to @band, notice: 'Band was successfully created.' }
-        format.json { render :show, status: :created, location: @band }
       else
         format.html { render :new }
-        format.json { render json: @band.errors, status: :unprocessable_entity }
       end
     end
   end

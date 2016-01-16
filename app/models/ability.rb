@@ -38,8 +38,11 @@ class Ability
       # can :access, :rails_admin
       # can :dashboard
     else
-      #  define abilities of regular signed in user
+      #  define abilities of a regular signed in user
       can [:read, :create], Band
+      can [:update, :destroy], Band do |band|
+        band.members.include?(user)
+      end
     end
   end
 end
