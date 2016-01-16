@@ -19,11 +19,11 @@ class ConcertsController < ApplicationController
   end
 
   def create
-    @concert = Concert.new(comment_params)
+    @concert = Concert.new(concert_params)
 
     respond_to do |format|
       if @concert.save
-        format.html { redirect_to @concert, notice: 'Band was successfully created.' }
+        format.html { redirect_to @concert, notice: 'Concert was successfully created.' }
         format.json { render :show, status: :created, location: @concert }
       else
         format.html { render :new }
@@ -33,16 +33,32 @@ class ConcertsController < ApplicationController
   end
 
   def update
-
+    respond_to do |format|
+      if @concert.update(concert_params)
+        format.html { redirect_to @concert, notice: 'Concert was successfully updated.' }
+        format.json { render :show, status: :ok, location: @band }
+      else
+        format.html { render :edit }
+        format.json { render json: @concert.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-
+    @concert.destroy
+    respond_to do |format|
+      format.html { redirect_to concerts_url, notice: 'Concert was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
 
+  def set_concert
+    @concert = Concert.find(params[:id])
+  end
+
   def concert_params
-    params.require(:post).permit(:location, :capacity, :from_date, :to_date, :price)
+    params.require(:concert).permit(:title, :location, :capacity, :from_date, :to_date, :price)
   end
 end

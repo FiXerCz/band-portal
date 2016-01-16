@@ -24,7 +24,7 @@
         <td><%=l concert.to_date %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_concerts_path(concert), :class => 'btn btn-default btn-xs' %>
+                      edit_concert_path(concert), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       concert_path(concert),
                       :method => :delete,
@@ -35,6 +35,8 @@
   <% end %>
   </tbody>
 </table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")), new_concert_path, :class => 'btn btn-primary' %>
 
 
 
