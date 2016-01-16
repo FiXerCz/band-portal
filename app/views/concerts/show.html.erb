@@ -10,10 +10,10 @@
   <dd><%= @concert.location %></dd>
   <dt><strong><%= model_class.human_attribute_name(:capacity) %>:</strong></dt>
   <dd><%= @concert.capacity %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:from_date) %>:</strong></dt>
-  <dd><%= @concert.from_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:to_date) %>:</strong></dt>
-  <dd><%= @concert.to_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:from) %>:</strong></dt>
+  <dd><%= @concert.from_date.strftime("%b %Y")  %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:to) %>:</strong></dt>
+  <dd><%= @concert.to_date.strftime("%b %Y")  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
   <dd> $<%= @concert.price %></dd>
 </dl>

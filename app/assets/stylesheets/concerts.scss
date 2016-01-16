@@ -1,3 +1,30 @@
 // Place all the styles related to the concert controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/*table date*/
+.event-date {
+  width: 6rem;
+  margin: 0 auto 1rem;
+  display: table-cell;
+  width: auto;
+  float: left;
+  margin-right: 10px;
+
+  .event-month {
+    margin: 0;
+    background: #c6c6c6;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    border: 1px solid #a8a8a8;
+    border-bottom: 0px;
+  }
+
+  .event-day {
+    margin: 0;
+    background: white;
+    border: 1px solid #a8a8a8;
+    padding: 3px 2rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+}

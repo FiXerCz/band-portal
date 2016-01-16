@@ -5,3 +5,11 @@
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
   =require twitter-bootstrap-static/fontawesome
   */
+
+.table-striped > tbody > tr:nth-child(2n) {
+    background-color: #d7d7d7;
+}
+
+.col-lg-9 {
+    background-color: #e7e7e7;
+}
