@@ -1,0 +1,49 @@
+<%- model_class = Band -%>
+<div class="page-header">
+  <h1>Add new member</h1>
+  <h2><%= @band.title %></h2>
+</div>
+
+<%= form_for @band_role, :url => { :action => :add_member }, :html => { :class => "form-horizontal band" } do |f| %>
+
+    <% if @band_role.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@band_role.errors.count, "error") %> prohibited this member from being saved:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% @band_role.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :user_id, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.collection_select(:user_id, User.all - @band.members, :id, :email, {:include_blank => ''},
+                                {:class => 'chosen-select form-control', 'data-placeholder' => 'Select new member'}) %>
+      </div>
+      <%=f.error_span(:user_id) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :role, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.text_field :role, :class => 'form-control' %>
+      </div>
+      <%=f.error_span(:role) %>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit 'Add member', :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    edit_band_path(@band), :class => 'btn btn-default' %>
+      </div>
+    </div>
+
+<% end %>

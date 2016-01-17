@@ -65,7 +65,27 @@ class BandsController < ApplicationController
     end
   end
 
-  def member
+  # GET /bands/1/add-member
+  def add_member
+    @band_role = BandRole.new
+    @band = Band.find(params[:id])
+  end
+
+  # POST /bands/1/add-member
+  def create_member
+    @band_role = BandRole.new(role_params)
+    @band_role.band = Band.find(params[:id])
+    respond_to do |format|
+      if @band_role.save
+        format.html { redirect_to edit_band_path(@band_role.band), notice: 'Band member was successfully added.' }
+      else
+        format.html { render :add_member }
+      end
+    end
+  end
+
+  # DELETE /bands/drop-member/1
+  def destroy_member
     role = BandRole.find(params[:mid])
     band = role.band
     role.destroy
@@ -83,5 +103,9 @@ class BandsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
       params.require(:band).permit(:title, :description, :active, band_roles_attributes: [ :id, :role ])
+    end
+
+    def role_params
+      params.require(:band_role).permit(:role, :user_id)
     end
 end
