@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
+
   resources :bands
   resources :concerts
+
   get 'home/index'
   get 'home' => 'home#index'
+
+  delete 'bands/:id/member/:mid' => 'bands#member'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
