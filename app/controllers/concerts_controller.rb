@@ -73,7 +73,10 @@ class ConcertsController < ApplicationController
   end
 
   def set_performers
-    params[:performing_bands].each do |band|
+    unless bands = params[:performing_bands]
+      return false
+    end
+    bands.each do |band|
       Performer.where(concert_id: @concert.id, band_id: band.to_i).create
     end
   end

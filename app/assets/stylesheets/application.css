@@ -43,12 +43,6 @@ body {
     border-color: transparent;
 }
 
-.btn-primary {
-    color: white !important;
-    background-color: #004c7a;
-    border-color: #004671;
-}
-
 .navbar-nav > li > .btn-primary {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -61,6 +55,12 @@ body {
 .navbar-default .navbar-nav > li > .btn-primary:focus {
     background-color: #006299 !important;
     border-color: #006698;
+}
+
+.btn-danger:focus,
+.btn-danger:hover, {
+    background-color: #D9534F !important;
+    border-color: #D43F3A;
 }
 
 .menu {

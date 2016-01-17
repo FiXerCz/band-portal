@@ -13,3 +13,13 @@
 .col-lg-9 {
     background-color: #e7e7e7;
 }
+
+.btn-primary {
+    color: white !important;
+    background-color: #004c7a;
+    border-color: #004671;
+}
+
+.btn-danger {
+    color: white !important;
+}

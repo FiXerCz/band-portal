@@ -60,8 +60,16 @@
   <div class="form-group">
       <%= f.label :performing_bands, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <% bands_array = Band.all.map { |band| [band.title, band.id] } %>
-        <%= select_tag(:performing_bands, options_for_select(bands_array), {:multiple => true, :class => "bands-select form-control" }) %>
+        <%
+           selected_bands = []
+           unless @concert.id.nil?
+             bands_id = Performer.where(:concert_id => @concert.id).select(:band_id)
+             bands_id.each do |id|
+               selected_bands.push(Band.where(:id => id.band_id)[0].id)
+             end
+           end
+        %>
+        <%= select_tag(:performing_bands, options_from_collection_for_select(Band.all,"id","title",{:selected=>selected_bands}), {:multiple => true, :class => "bands-select form-control" }) %>
       </div>
       <%=f.error_span(:performing_bands) %>
   </div>
