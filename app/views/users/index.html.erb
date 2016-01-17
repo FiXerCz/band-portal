@@ -12,18 +12,17 @@
     bandroles = BandRole.where(:user_id => user.id)
   %>
   <div class="fan">
-    e-mail: <%= user.email %><br>
+    <p class="fan-name"><%= link_to user.username, user_path(user) %><br></p>
+    <p><%= user.email %></p>
     <% if bandroles.length > 0 %>
-        Member of:
-        <% bandroles.each_with_index do |role, i| %>
-            <%= Band.where(:id => role.band_id)[0].title %>
-            <% if !i.equal?(bandroles.length-1)%>
-                (as <%= role.role %>),
-            <% else %>
-                (as <%= role.role %>)
-            <%end%>
+        Member of
+        <% if bandroles.length == 1 %>
+            <%= Band.where(:id => bandroles[0].band_id)[0].title %> (as <%= bandroles[0].role %>)<br>
+        <%else %>
+            <%= bandroles.length %> bands
         <% end %>
     <% end %>
+    </dl>
   </div>
   <% end %>
 </div>

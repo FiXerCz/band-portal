@@ -48,7 +48,7 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-              <li><a rel="nofollow" data-method="" href=""><%= current_user.email  %></a></li>
+              <li><%= link_to current_user.username, user_path(current_user)%></li>
               <li><a rel="nofollow" data-method="delete" href="/users/sign_out">Log out</a></li>
             <% else %>
               <li><%= link_to "Login", "/users/sign_in" , :class => "btn btn-link btn-xs" %></li>

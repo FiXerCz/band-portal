@@ -5,7 +5,7 @@ class Ability
     alias_action :create, :read, :update, :destroy, :to => :crud
     if user.nil?
       # define abilities of guest (not logged in)
-      can :read, [Band, Concert]
+      can :read, [Band, Concert, User]
     elsif !user.nil? && user.admin?
       # define abilities of portal admin
       can :manage, :all
@@ -16,6 +16,7 @@ class Ability
       can [:read, :create], [Band, Concert]
       set_users_advanced_band_perm user
       can [:update, :destroy], Concert, :user_id => user.id
+      can [:update, :destroy], User, :id => user.id
     end
   end
 

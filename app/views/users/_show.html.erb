@@ -1,0 +1,23 @@
+<%- model_class = User -%>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @user.email %></dd>
+  <% bandroles = BandRole.where(:user_id => @user.id)
+     if bandroles.length > 0 %>
+      <dt><strong><%= model_class.human_attribute_name(:member_of) %>:</strong></dt>
+      <% bandroles.each do |role| %>
+          <dd><%= Band.where(:id => role.band_id)[0].title %> (as <%= role.role %>)</dd>
+      <% end %>
+  <% end %>
+</dl>
+
+<div class="buttons">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              users_path, :class => 'btn btn-default'  %>
+
+  <% if can? :update, @user %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit-your-profile")),
+                  edit_user_registration_path, :class => 'btn btn-default' %>
+  <% end %>
+</div>
