@@ -13,7 +13,7 @@
   <dt><strong>Band members:</strong></dt>
   <dd>
     <% @band.band_roles.each do |band_member| %>
-      <%= band_member.user.email %> <em>(<%= band_member.role %>)</em><br />
+      <%= band_member.user.username %> <em>(<%= band_member.role %>)</em><br />
     <% end %>
   </dd>
 </dl>

@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def username_and_email
+    "#{username} - (#{email})"
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

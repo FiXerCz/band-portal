@@ -19,7 +19,7 @@
 
       <%= f.fields_for :band_roles do |r| %>
           <tr>
-            <td><%= r.label :role, r.object.user.email, :class => 'control-label col-lg-2' %></td>
+            <td><%= r.label :role, r.object.user.username, :class => 'control-label col-lg-2' %></td>
             <td><%= r.text_field :role, :class => 'form-control' %><%=r.error_span(:role) %></td>
             <td>
               <% if can? :destroy_member, r.object.band %>
