@@ -2,4 +2,49 @@
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
 </div>
-<%= render :partial => 'form', :locals => {:action => 'edit'} %>
+
+<%= form_for @band, :html => { :class => "form-horizontal band" } do |f| %>
+
+    <%= render :partial => 'form', :locals => {:f => f, :action => 'edit'} %>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Member</th>
+        <th>Role in the band</th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <%= f.fields_for :band_roles do |r| %>
+          <tr>
+            <td><%= r.label :role, r.object.user.email, :class => 'control-label col-lg-2' %></td>
+            <td><%= r.text_field :role, :class => 'form-control' %><%=r.error_span(:role) %></td>
+            <td>
+              <% if can? :destroy_member, r.object.band %>
+                  <%= link_to 'Remove member',
+                              '/bands/drop-member/' + r.object.id.to_s,
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                              :class => 'btn btn-default btn-danger' %>
+              <% else %>
+                  <div data-toggle="tooltip" data-placement="left" title="You cannot remove the last member">
+                    <%= link_to 'Remove member', '#', :class => 'btn btn-default btn-danger disabled' %>
+                  </div>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")), bands_path, :class => 'btn btn-default' %>
+      </div>
+    </div>
+
+<% end %>

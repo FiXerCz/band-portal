@@ -2,4 +2,28 @@
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
 </div>
-<%= render :partial => 'form', :locals => {:action => 'new'} %>
+
+<%= form_for @band, :html => { :class => 'form-horizontal band' } do |f| %>
+
+    <%= render :partial => 'form', :locals => {:f => f, :action => 'new'} %>
+
+    <%= f.fields_for :band_roles do |r| %>
+      <div class="form-group">
+        <%= r.label :role, 'Your role in the band', :class => 'control-label col-lg-2' %>
+        <div class="col-lg-10">
+          <%= r.text_field :role, :class => 'form-control' %>
+          <br />
+          <p>You can add more band members later.</p>
+        </div>
+        <%=r.error_span(:role) %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")), bands_path, :class => 'btn btn-default' %>
+      </div>
+    </div>
+
+<% end %>
