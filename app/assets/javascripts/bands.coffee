@@ -3,4 +3,4 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'ready page:load', ->
   $('[data-toggle="tooltip"]').tooltip()
-  $('.chosen-select').chosen({})
+  $('.chosen-select').chosen({ search_contains : true })
