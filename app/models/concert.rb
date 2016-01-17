@@ -4,7 +4,7 @@ class Concert < ActiveRecord::Base
   validates :price, numericality: { greather_than: 0 }
   validate :end_after_start
 
-  has_many :performers
+  has_many :performers, :dependent => :destroy
   has_many :bands, through: :performers
 
   def end_after_start

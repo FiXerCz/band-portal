@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160116214639) do
   create_table "performers", force: :cascade do |t|
     t.integer "concert_id"
     t.integer "band_id"
+    t.boolean "confirmed"
   end
 
   add_index "performers", ["band_id"], name: "index_performers_on_band_id"

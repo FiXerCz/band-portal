@@ -6,11 +6,14 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:bands) %>:</strong></dt>
+  <dt><strong><%= model_class.human_attribute_name(:expected_bands) %>:</strong></dt>
   <% performer = Performer.where(:concert_id => @concert.id)
      bands = []
+     confirmed_bands = []
      performer.each do |p|
-       bands.push(Band.where(:id => p.band_id))
+       band = Band.where(:id => p.band_id)
+       bands.push(band)
+       confirmed_bands.push(band) if p.confirmed
      end
       %>
   <dd>
@@ -22,6 +25,16 @@
       <%end%>
     <% end %>
   <dd/>
+  <dt><strong><%= model_class.human_attribute_name(:confirmed_bands) %>:</strong></dt>
+  <dd>
+    <% confirmed_bands.each_with_index do |band, i| %>
+        <% if !i.equal?(confirmed_bands.length-1)%>
+            <%= band[0].title %>,
+        <% else %>
+            <%= band[0].title %>
+        <%end%>
+    <% end %>
+  </dd>
   <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
   <dd><%= @concert.location %></dd>
   <dt><strong><%= model_class.human_attribute_name(:capacity) %>:</strong></dt>
