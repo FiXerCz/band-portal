@@ -1,0 +1,25 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1>Fans</h1>
+</div>
+
+<div class="fans">
+  <% @users.each do |user|
+    bandroles = BandRole.where(:user_id => user.id)
+  %>
+  <div class="fan">
+    e-mail: <%= user.email %><br>
+    <% if bandroles.length > 0 %>
+        Member of:
+        <% bandroles.each_with_index do |role, i| %>
+            <%= Band.where(:id => role.band_id)[0].title %>
+            <% if !i.equal?(bandroles.length-1)%>
+                (as <%= role.role %>),
+            <% else %>
+                (as <%= role.role %>)
+            <%end%>
+        <% end %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
