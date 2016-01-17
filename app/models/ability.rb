@@ -40,10 +40,21 @@ class Ability
     else
       #  define abilities of a regular signed in user
       can [:read, :create], [Band, Concert]
-      can [:update, :destroy], Band do |band|
-        band.members.include?(user)
-      end
+      set_users_advanced_band_perm user
       can [:update, :destroy], Concert, :user_id => user.id
+    end
+  end
+
+  def set_users_advanced_band_perm(user)
+    can :update, Band do |band|
+      band.members.include?(user)
+    end
+    can :destroy, Band do |band|
+      band.members.size == 1 && band.members.include?(user)
+    end
+    can :member, Band do |band|
+      # can kick member, if some member will remain in band after
+      band.members.size > 1 && band.members.include?(user)
     end
   end
 end

@@ -65,6 +65,15 @@ class BandsController < ApplicationController
     end
   end
 
+  def member
+    role = BandRole.find(params[:mid])
+    band = role.band
+    role.destroy
+    respond_to do |format|
+      format.html { redirect_to edit_band_path(band), notice: 'Band member was dropped.' }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_band
