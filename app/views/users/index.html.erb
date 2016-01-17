@@ -3,6 +3,10 @@
   <h1>Fans</h1>
 </div>
 
+<div class="text-center">
+  <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+</div>
+
 <div class="fans">
   <% @users.each do |user|
     bandroles = BandRole.where(:user_id => user.id)

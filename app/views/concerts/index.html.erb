@@ -6,6 +6,10 @@
   <% end %>
 </div>
 
+<div class="text-center">
+    <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+</div>
+
 <table class="table table-striped concerts">
   <tbody>
   <% @concerts.each do |concert| %>

@@ -1,4 +1,5 @@
 class Concert < ActiveRecord::Base
+  self.per_page = 10
   validates :title, :location, :from_date, :to_date, :price, :presence => true
   validates :capacity, numericality: { only_integer: true }
   validates :price, numericality: { greather_than: 0 }

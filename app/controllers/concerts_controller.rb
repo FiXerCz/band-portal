@@ -4,7 +4,7 @@ class ConcertsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @concerts = Concert.all
+    @concerts = Concert.paginate(:page => params[:page]).order('from_date DESC')
   end
 
   def show
