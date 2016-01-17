@@ -2,32 +2,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
     alias_action :create, :read, :update, :destroy, :to => :crud
     if user.nil?
       # define abilities of guest (not logged in)
@@ -46,13 +20,13 @@ class Ability
   end
 
   def set_users_advanced_band_perm(user)
-    can :update, Band do |band|
+    can [:update, :add_member, :create_member], Band do |band|
       band.members.include?(user)
     end
     can :destroy, Band do |band|
       band.members.size == 1 && band.members.include?(user)
     end
-    can :member, Band do |band|
+    can :destroy_member, Band do |band|
       # can kick member, if some member will remain in band after
       band.members.size > 1 && band.members.include?(user)
     end
