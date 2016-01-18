@@ -1,8 +1,18 @@
 <%- model_class = Band -%>
 <div class="page-header">
-  <h1><%= @band.title %></h1>
-  <% if !@band.active %><span class='pull-right text-muted'>band is not active</span><% end %>
-  <p><em>genre / genre</em></p>
+  <div class="clearfix">
+    <h1 class="pull-left"><%= @band.title %></h1>
+    <% if user_signed_in? %>
+        <%= form_tag band_path(@band) + '/fan', :class => 'pull-right like-button-top' do %>
+            <%= check_box_tag :is_fan, 1, @is_fan, :id => 'fan_checkbox' %>
+            <%= label_tag 'fan_checkbox', 'Like this' %>
+        <% end %>
+    <% end %>
+  </div>
+  <div class="clearfix">
+    <p class="pull-left"><em>genre / genre</em></p>
+    <% if !@band.active %><span class='pull-right text-muted'>band is not active</span><% end %>
+  </div>
 </div>
 
 <p><%= @band.description %></p>

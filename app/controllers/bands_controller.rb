@@ -1,6 +1,7 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_band, only: [:show, :edit, :update, :destroy,
+                                  :manage_fan, :create_member, :add_member]
+  before_action :authenticate_user!, except: [:index, :show]
   load_and_authorize_resource
 
   # GET /bands
@@ -12,6 +13,7 @@ class BandsController < ApplicationController
   # GET /bands/1
   # GET /bands/1.json
   def show
+    @is_fan = @band.fans.include? current_user if user_signed_in?
   end
 
   # GET /bands/new
@@ -47,10 +49,8 @@ class BandsController < ApplicationController
     respond_to do |format|
       if @band.update(band_params)
         format.html { redirect_to @band, notice: 'Band was successfully updated.' }
-        format.json { render :show, status: :ok, location: @band }
       else
         format.html { render :edit }
-        format.json { render json: @band.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,20 +61,18 @@ class BandsController < ApplicationController
     @band.destroy
     respond_to do |format|
       format.html { redirect_to bands_url, notice: 'Band was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
   # GET /bands/1/add-member
   def add_member
     @band_role = BandRole.new
-    @band = Band.find(params[:id])
   end
 
   # POST /bands/1/add-member
   def create_member
     @band_role = BandRole.new(role_params)
-    @band_role.band = Band.find(params[:id])
+    @band_role.band = @band
     respond_to do |format|
       if @band_role.save
         format.html { redirect_to edit_band_path(@band_role.band), notice: 'Band member was successfully added.' }
@@ -91,6 +89,19 @@ class BandsController < ApplicationController
     role.destroy
     respond_to do |format|
       format.html { redirect_to edit_band_path(band), notice: 'Band member was dropped.' }
+    end
+  end
+
+  # POST /bands/1/fan
+  def manage_fan
+    if params[:is_fan]
+      @band.fans << current_user
+    else
+      @band.fans.delete current_user
+    end
+    respond_to do |format|
+      format.html { redirect_to @band, notice: params[:is_fan] ?
+          'You are now a fan of this band.' : 'You are no longer a fan of the band.' }
     end
   end
 

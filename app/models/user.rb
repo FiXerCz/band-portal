@@ -5,8 +5,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :authentication_keys => [:login]
   attr_accessor :login
+
   has_many :band_roles
   has_many :bands, through: :band_roles
+
+  has_and_belongs_to_many :favourite_bands, :class_name=>'Band', :join_table => 'bands_users',
+                          :foreign_key => :user_id, :association_foreign_key => :band_id
+
   validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
   validate :validate_username
 

@@ -20,7 +20,7 @@
             <p class="text-muted"><i>genre / genre</i></p>
             <p class="text-justify"><%= truncate band.description, :length  => 200, :separator => /\w/, :omission => '...' %></p>
             <div class="clearfix">
-              <p class="pull-left text-info">5 fans</p>
+              <p class="pull-left text-info"><%= pluralize band.fans.count, 'fan' %></p>
               <p class="pull-right">
                 <%= link_to 'Details', band_path(band), :class => 'btn btn-xs btn-default', :role => 'button' %>
                 <% if can? :update, band %>

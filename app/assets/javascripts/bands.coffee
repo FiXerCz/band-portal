@@ -4,3 +4,5 @@
 $(document).on 'ready page:load', ->
   $('[data-toggle="tooltip"]').tooltip()
   $('.chosen-select').chosen({ search_contains : true })
+  $('input:checkbox#fan_checkbox').on 'change', ->
+    $(this.form).submit()
