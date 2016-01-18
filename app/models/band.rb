@@ -1,4 +1,5 @@
 class Band < ActiveRecord::Base
+  self.per_page = 12
   has_many :band_roles, :dependent => :destroy
   has_many :members, :through => :band_roles, :source => :user
 

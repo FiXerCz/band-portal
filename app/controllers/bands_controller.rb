@@ -6,7 +6,7 @@ class BandsController < ApplicationController
   # GET /bands
   # GET /bands.json
   def index
-    @bands = Band.all
+    @bands = Band.all.page(params[:page])
   end
 
   # GET /bands/1
