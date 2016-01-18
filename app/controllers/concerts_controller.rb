@@ -9,7 +9,14 @@ class ConcertsController < ApplicationController
 
   def show
     @performers = Performer.where(:concert_id => @concert.id)
-    #@performer = Performer.where(:band_id=>1)[0]
+
+    @bands = []
+    @confirmed_bands = []
+    Performer.where(:concert_id => @concert.id).each do |p|
+      band = Band.where(:id => p.band_id)
+      @bands.push(band)
+      @confirmed_bands.push(band) if p.confirmed
+    end
   end
 
   def edit

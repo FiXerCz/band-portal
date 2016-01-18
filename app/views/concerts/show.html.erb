@@ -12,18 +12,9 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:expected_bands) %>:</strong></dt>
-  <% performer = Performer.where(:concert_id => @concert.id)
-     bands = []
-     confirmed_bands = []
-     performer.each do |p|
-       band = Band.where(:id => p.band_id)
-       bands.push(band)
-       confirmed_bands.push(band) if p.confirmed
-     end
-      %>
   <dd>
-    <% bands.each_with_index do |band, i| %>
-      <% if !i.equal?(bands.length-1)%>
+    <% @bands.each_with_index do |band, i| %>
+      <% if !i.equal?(@bands.length-1)%>
         <%= band[0].title %>,
       <% else %>
         <%= band[0].title %>
@@ -32,8 +23,8 @@
   <dd/>
   <dt><strong><%= model_class.human_attribute_name(:confirmed_bands) %>:</strong></dt>
   <dd>
-    <% confirmed_bands.each_with_index do |band, i| %>
-        <% if !i.equal?(confirmed_bands.length-1)%>
+    <% @confirmed_bands.each_with_index do |band, i| %>
+        <% if !i.equal?(@confirmed_bands.length-1)%>
             <%= band[0].title %>,
         <% else %>
             <%= band[0].title %>

@@ -1,0 +1,58 @@
+<% if current_user.eql? @user %>
+
+    <% unless @uncorfimed_concerts.empty? %>
+        <div class="panel-heading  bg-warning ">
+          <h3 class="panel-title text-warning">Please, confirm attendance of your band on following concerts:</h3>
+        </div>
+    <% end %>
+
+    <p class="bg-warning text-warning"></p>
+
+    <ul>
+      <% @uncorfimed_concerts.each do |concert| %>
+          <li class="list-unstyled">
+            <strong><%= link_to concert[1][0].title, concert_path(concert[1][0]) %></strong>
+            (<%= concert[0][0].title %>)
+          </li>
+      <% end %>
+    </ul>
+
+
+    <% unless @corfimed_concerts.empty? %>
+        <h3>Incoming events of your band(s): </h3>
+        <ul>
+          <% @corfimed_concerts.each do |concert| %>
+
+          <% end %>
+        </ul>
+    <% end %>
+<% end %>
+
+<table class="table table-striped concerts">
+  <tbody>
+  <% @corfimed_concerts.each do |concert|
+    concert = concert[1][0]
+  %>
+      <tr><td>
+        <div class="event-date">
+          <p class="event-month"><%= concert.from_date.strftime("%b %Y") %></p>
+          <p class="event-day"><%= concert.from_date.strftime("%e") %></p>
+        </div>
+        <%= link_to concert.title, concert_path(concert), :class => "concert-title" %><br>
+        <strong>Where</strong>: <%= concert.location %><br>
+        <strong>From</strong>: <%= concert.from_date.strftime("%e. %B %k:%M") %>, to <%= concert.to_date.strftime("%e. %B %k:%M")  %><br>
+        <strong>Confirmed bands</strong>:
+        <% performer = Performer.where(:concert_id => concert.id, :confirmed => true)
+           performer.each_with_index do |p, i| %>
+            <% if !i.equal?(performer.length-1)%>
+                <%= Band.find(p.band_id).title %>,
+            <% else %>
+                <%= Band.find(p.band_id).title %>
+            <% end
+               end %>
+        <% if performer.length == 0 %> - <% end %>
+        <%= link_to "More information", concert_path(concert), :style => "float: right", :class => "btn-link"%>
+      </td></tr>
+  <% end %>
+  </tbody>
+</table>
