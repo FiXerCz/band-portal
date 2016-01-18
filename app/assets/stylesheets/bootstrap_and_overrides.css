@@ -23,3 +23,7 @@
 .btn-danger {
     color: white !important;
 }
+
+.menu.navbar-default {
+    border: none;
+}

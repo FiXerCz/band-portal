@@ -74,10 +74,10 @@
         </button>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Bands", "/bands"  %></li>
-            <li><%= link_to "Concerts", "/concerts"  %></li>
-            <li><%= link_to "Fans", "/users" %></li>
-            <li><%= link_to "Home", "/home"  %></li>
+            <li class="<%= active_class(bands_path) %>"><%= link_to "Bands", bands_path %></li>
+            <li class="<%= active_class(concerts_path) %>"><%= link_to "Concerts", concerts_path  %></li>
+            <li class="<%= active_class(users_path) %>"><%= link_to "Fans", users_path %></li>
+            <li class="<%= active_class(home_path) %>"><%= link_to "Home", home_path  %></li>
           </ul>
         </div>
       </div>

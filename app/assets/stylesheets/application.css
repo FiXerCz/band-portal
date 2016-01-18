@@ -16,7 +16,7 @@
  */
 
 body {
-    background-color: #908882;
+    background-color: #6F6761;
 }
 
 .header {
@@ -65,7 +65,7 @@ body {
 }
 
 .menu {
-    background-color: #E3B393;/*#ffc69e;*/
+    background-color: #ea9a74;/*#ffc69e;*/
 }
 
 .menu .navbar-nav > li > a {
