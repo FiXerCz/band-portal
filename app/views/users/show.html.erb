@@ -7,4 +7,23 @@
 
 <%= render "users/show" %>
 
+<% if current_user.eql? @user %>
 
+    <% unless @uncorfimed_concerts.empty? %>
+    <div class="panel-heading  bg-warning ">
+      <h3 class="panel-title text-warning">Please, confirm attendance of your band on following concerts:</h3>
+    </div>
+    <% end %>
+
+
+    <p class="bg-warning text-warning"></p>
+
+    <ul>
+    <% @uncorfimed_concerts.each do |concert| %>
+        <li class="list-unstyled">
+          <strong><%= link_to concert[1][0].title, concert_path(concert[1][0]) %></strong>
+          (<%= concert[0][0].title %>)
+        </li>
+    <% end %>
+    </ul>
+<% end %>

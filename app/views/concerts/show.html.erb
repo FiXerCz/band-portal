@@ -1,8 +1,13 @@
 <%- model_class = Concert -%>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input:checkbox').bootstrapSwitch();
+    });
+</script>
+
 <div class="page-header">
   <h1><%= @concert.title %></h1>
-
 </div>
 
 <dl class="dl-horizontal">
@@ -50,6 +55,7 @@
   <dd> <%= User.where(:id => @concert.user_id)[0].email %></dd>
 </dl>
 
+
 <div class="buttons">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               concerts_path, :class => 'btn btn-default'  %>
@@ -59,12 +65,25 @@
               edit_concert_path(@concert), :class => 'btn btn-default' %>
   <% end %>
   <% if can? :destroy, @concert %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              concert_path(@concert),
-              :method => 'delete',
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),concert_path(@concert),:method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
   <% end %>
+</div>
+
+<hr>
+
+<div class="buttons">
+  <% @performers.each do |band|
+       role = BandRole.where(:band_id => band.band_id, :user_id => current_user.id)
+       unless role.empty? %>
+          <%= form_for band, :url => {:controller => "concerts", :action => "confirm"}, :method => :POST do |f| %>
+            <%= f.hidden_field :id, { :value => band.id } %>
+            <p><strong>Is <%= Band.find(band.band_id).title %> attending this event?</strong></p>
+            <%= f.check_box :confirmed, :data => { :size=>'small', 'on-color'=>'success', 'on-text'=>'YES', 'off-text'=>'NO' }, :onchange => 'this.form.submit()' %>
+    <% end %>
+  <% end %>
+<% end %>
 </div>
 
 

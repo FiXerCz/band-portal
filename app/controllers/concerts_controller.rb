@@ -8,6 +8,8 @@ class ConcertsController < ApplicationController
   end
 
   def show
+    @performers = Performer.where(:concert_id => @concert.id)
+    #@performer = Performer.where(:band_id=>1)[0]
   end
 
   def edit
@@ -56,6 +58,19 @@ class ConcertsController < ApplicationController
     end
   end
 
+  def confirm
+    @performer = Performer.find(params[:performer][:id])
+    respond_to do |format|
+      if @performer.update(performer_params)
+        format.html { redirect_to @concert, notice: 'Your concert attendance was successfully updated.' }
+        format.json { render :show, status: :created, location: @concert }
+      else
+        format.html { render :show }
+        format.json { render json: @concert.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def set_concert
@@ -64,6 +79,10 @@ class ConcertsController < ApplicationController
 
   def concert_params
     params.require(:concert).permit(:title, :location, :capacity, :from_date, :to_date, :price, :performing_bands => [])
+  end
+
+  def performer_params
+    params.require(:performer).permit(:confirmed)
   end
 
   def delete_performers

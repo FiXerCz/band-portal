@@ -11,7 +11,13 @@ Rails.application.routes.draw do
       post 'add-member' => 'bands#create_member'
     end
   end
-  resources :concerts
+
+  resources :concerts #do
+  #end
+
+   match "concerts/:id", :via=>:post, :controller=>"concerts", :action=>"confirm"
+
+  #resources :performers
 
   get 'home/index'
   get 'home' => 'home#index'

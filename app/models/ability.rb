@@ -13,11 +13,17 @@ class Ability
       # can :dashboard
     else
       #  define abilities of a regular signed in user
+      #can [:crud], [Performer, Concert, Band, BandRole, User]
       can [:read, :create], [Band, Concert]
       set_users_advanced_band_perm user
       can [:update, :destroy], Concert, :user_id => user.id
       can [:update, :destroy], User, :id => user.id
+      can [:confirm], Concert
     end
+  end
+
+  def allow_confirm_Concert(user)
+    return true
   end
 
   def set_users_advanced_band_perm(user)
