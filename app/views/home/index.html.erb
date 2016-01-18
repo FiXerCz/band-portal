@@ -1,3 +1,7 @@
-<h1><%= current_user.username %>'s profile</h1>
+<% if user_signed_in? %>
+  <h1><%= current_user.username %>'s profile</h1>
 
-<%= render "users/show" %>
+  <%= render "users/show" %>
+<% else %>
+  <h1>Some jibber jabber for not signed in users</h1>
+<% end %>
