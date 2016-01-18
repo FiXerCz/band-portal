@@ -29,13 +29,22 @@
   <%=f.error_span(:description) %>
 </div>
 
+<div class="form-group">
+  <%= f.label :genres, :class => 'control-label col-lg-2' %>
+  <div class="col-lg-10">
+    <%= f.select :genre_ids, get_all_genres.collect { |x| [x.title, x.id] }, {},
+                 :multiple => true, :class => 'form-control', :size => '8' %>
+  </div>
+  <%=f.error_span(:genres) %>
+</div>
+
 <% if action == 'new' %>
   <%= f.hidden_field(:active,  :value => true) %>
 <% else %>
   <div class="form-group">
     <%= f.label :active, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.check_box :active, :class => 'form-control' %>
+      <%= f.check_box :active %>
     </div>
     <%=f.error_span(:active) %>
   </div>
