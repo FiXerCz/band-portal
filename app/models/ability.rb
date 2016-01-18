@@ -37,5 +37,6 @@ class Ability
       # can kick member, if some member will remain in band after
       band.members.size > 1 && band.members.include?(user)
     end
+    can :manage_fan, Band
   end
 end

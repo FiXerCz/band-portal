@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       get 'add-member' => 'bands#add_member'
       post 'add-member' => 'bands#create_member'
+      post 'fan' => 'bands#manage_fan'
     end
   end
 
