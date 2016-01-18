@@ -1,39 +1,37 @@
 <%- model_class = Band -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= @band.title %></h1>
+  <% if !@band.active %><span class='pull-right text-muted'>band is not active</span><% end %>
+  <p><em>genre / genre</em></p>
 </div>
 
+<p><%= @band.description %></p>
+
+<h2>Band members</h2>
+
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @band.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @band.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
-  <dd><%= @band.active %></dd>
-  <dt><strong>Band members:</strong></dt>
-  <dd>
-    <% @band.band_roles.each do |band_member| %>
-      <%= band_member.user.username %> <em>(<%= band_member.role %>)</em><br />
-    <% end %>
-  </dd>
+  <% @band.band_roles.each do |band_member| %>
+  <dt><strong><%= band_member.user.username %></strong></dt>
+  <dd><em>(<%= band_member.role %>)</em></dd>
+  <% end %>
 </dl>
 
-TODO display albums and songs <br /><br />
+<h2>Albums</h2>
 
-TODO display concerts <br /><br />
+<h2>Concerts</h2>
 
-TODO display comments <br /><br />
+<h2>Comments</h2>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              bands_path, :class => 'btn btn-default'  %>
-<% if can? :update, @band %>
-  <%= link_to 'Edit band',
-                edit_band_path(@band), :class => 'btn btn-default' %>
-<% end %>
-<% if can? :destroy, @band %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                band_path(@band),
-                :method => 'delete',
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-danger' %>
-<% end %>
+<div class="buttons">
+  <%= link_to t('.back', :default => t("helpers.links.back")), bands_path, :class => 'btn btn-default'  %>
+  <% if can? :update, @band %>
+    <%= link_to 'Edit band', edit_band_path(@band), :class => 'btn btn-default' %>
+  <% end %>
+  <% if can? :destroy, @band %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  band_path(@band),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger' %>
+  <% end %>
+</div>
