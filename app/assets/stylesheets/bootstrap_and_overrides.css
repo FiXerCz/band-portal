@@ -54,6 +54,16 @@ label.required:after {
 
 }
 
+.upper-navbar-overlay-fix {
+    z-index: 1001;
+}
+
+.navbar-border-fix {
+    border: 0;
+    box-shadow: none;
+}
+}
+
 .input-group-addon, .input-group-btn {
     width: 36%;
 }
