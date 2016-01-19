@@ -7,7 +7,7 @@ class BandsController < ApplicationController
   # GET /bands
   # GET /bands.json
   def index
-    @bands = Band.all.page(params[:page])
+    @bands = Band.where("title LIKE ?", "%#{params[:search]}%" ).page(params[:page])
   end
 
   # GET /bands/1
