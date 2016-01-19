@@ -42,6 +42,7 @@ gem 'paperclip'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-switch-rails', '~> 3.0.0'
+gem 'validates_timeliness', '~> 4.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

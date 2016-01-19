@@ -17,16 +17,16 @@
   <%= f.label :title, :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
     <%= f.text_field :title, :class => 'form-control' %>
+    <%=f.error_span(:title) %>
   </div>
-  <%=f.error_span(:title) %>
 </div>
 
 <div class="form-group">
   <%= f.label :description, :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
     <%= f.text_area :description, :class => 'form-control' %>
+    <%=f.error_span(:description) %>
   </div>
-  <%=f.error_span(:description) %>
 </div>
 
 <div class="form-group">
@@ -34,8 +34,8 @@
   <div class="col-lg-10">
     <%= f.select :genre_ids, get_all_genres.collect { |x| [x.title, x.id] }, {},
                  :multiple => true, :class => 'form-control', :size => '8' %>
+    <%=f.error_span(:genres) %>
   </div>
-  <%=f.error_span(:genres) %>
 </div>
 
 <% if action == 'new' %>
@@ -45,8 +45,8 @@
     <%= f.label :active, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.check_box :active %>
+      <%=f.error_span(:active) %>
     </div>
-    <%=f.error_span(:active) %>
   </div>
 <% end %>
 

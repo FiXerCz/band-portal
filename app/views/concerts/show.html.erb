@@ -33,8 +33,11 @@
   </dd>
   <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
   <dd><%= @concert.location %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:capacity) %>:</strong></dt>
-  <dd><%= @concert.capacity %> people</dd>
+  <% if @concert.capacity %>
+    <dt><strong><%= model_class.human_attribute_name(:capacity) %>:</strong></dt>
+    <dd><%= @concert.capacity %> people
+  <% end %>
+  </dd>
   <dt><strong><%= model_class.human_attribute_name(:from) %>:</strong></dt>
   <dd><%= @concert.from_date.strftime("%e. %B %Y %k:%M")  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:to) %>:</strong></dt>

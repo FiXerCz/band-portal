@@ -27,3 +27,29 @@
 .menu.navbar-default {
     border: none;
 }
+
+label.required:after {
+    content:" *";
+}
+
+/* Rails scaffold style compatibility */
+#error_explanation {
+@extend .alert;
+@extend .alert-danger;
+    width: inherit;
+}
+
+.field_with_errors {
+@extend .has-error;
+    display: inherit;
+    padding: 0;
+    border-radius: 4px;
+    background-color: inherit;
+    border-color: #A94442;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075);
+
+@extend .has-error:focus;
+    border-color: #843534;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 6px #CE8483;
+
+}
