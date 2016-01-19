@@ -1,0 +1,21 @@
+<tr><td>
+  <%concert = locals[:concert] %>
+  <div class="event-date">
+    <p class="event-month"><%= concert.from_date.strftime("%b %Y") %></p>
+    <p class="event-day"><%= concert.from_date.strftime("%e") %></p>
+  </div>
+  <%= link_to concert.title, concert_path(concert), :class => "concert-title" %><br>
+  <strong>Where</strong>: <%= concert.location %><br>
+  <strong>From</strong>: <%= concert.from_date.strftime("%e. %B %k:%M") %>, to <%= concert.to_date.strftime("%e. %B %k:%M")  %><br>
+  <strong>Confirmed bands</strong>:
+  <% performer = Performer.where(:concert_id => concert.id, :confirmed => true)
+     performer.each_with_index do |p, i| %>
+      <% if !i.equal?(performer.length-1)%>
+          <%= Band.find(p.band_id).title %>,
+      <% else %>
+          <%= Band.find(p.band_id).title %>
+      <% end
+         end %>
+  <% if performer.length == 0 %> - <% end %>
+  <%= link_to "More information", concert_path(concert), :style => "float: right", :class => "btn-link"%>
+</td></tr>

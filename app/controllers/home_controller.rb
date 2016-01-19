@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
     if user_signed_in?
-      @user = User.where(:id => current_user.id)[0]
       @user = User.find(current_user.id)
+      @fan = []
       @users_bands = BandRole.where(:user_id => @user.id).select(:band_id)
       @uncorfimed_concerts = []
       @corfimed_concerts = []
@@ -14,6 +14,10 @@ class HomeController < ApplicationController
             push_concerts(@uncorfimed_concerts, role, perf)
           end
         end
+      end
+
+      Band.all.each do |band|
+        @fan << band unless band.fans.where(:id => current_user.id).empty?
       end
     end
   end

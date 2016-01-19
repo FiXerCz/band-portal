@@ -1,10 +1,14 @@
 <% if user_signed_in? %>
   <h1>News</h1>
-  <%= render "users/home" %>
+  <%= render "home/home" %>
 
-  <% if @corfimed_concerts.empty? && @uncorfimed_concerts.empty? && BandRole.where(:user_id => current_user.id).empty? %>
+  <% empty_confirmed = @corfimed_concerts.empty?
+     empty_unconfirmed = @uncorfimed_concerts.empty?
+     empty_bands = BandRole.where(:user_id => current_user.id).empty?
+  %>
+  <% if @fan.empty? && empty_confirmed && empty_unconfirmed  && empty_bands %>
         <h3><%= link_to "Like your favorite bands", bands_path %> or <%= link_to "start up your own", new_band_path %>! </h3><br>
-  <% end %>
+    <% end %>
 <% else %>
   <h1>Some jibber jabber for not signed in users</h1>
 <% end %>

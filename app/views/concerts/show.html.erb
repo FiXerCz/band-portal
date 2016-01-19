@@ -67,6 +67,7 @@
 
 <hr>
 
+<% if user_signed_in? %>
 <div class="buttons">
   <% @performers.each do |band|
        role = BandRole.where(:band_id => band.band_id, :user_id => current_user.id)
@@ -79,5 +80,5 @@
   <% end %>
 <% end %>
 </div>
-
+<% end %>
 
