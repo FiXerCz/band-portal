@@ -53,3 +53,12 @@ label.required:after {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 6px #CE8483;
 
 }
+
+.upper-navbar-overlay-fix {
+    z-index: 1001;
+}
+
+.navbar-border-fix {
+    border: 0;
+    box-shadow: none;
+}
