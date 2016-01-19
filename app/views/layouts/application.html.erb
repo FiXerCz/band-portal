@@ -37,7 +37,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="navbar navbar-default navbar-static-top">
+    <div class="navbar navbar-default navbar-static-top" style="z-index: 1001;">
       <div class="container">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
           <span class="icon-bar"></span>
@@ -46,10 +46,32 @@
         </button>
         <a class="navbar-brand" href="/home">BandPortal</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-              <li><%= link_to current_user.username, user_path(current_user)%></li>
-              <li><a rel="nofollow" data-method="delete" href="/users/sign_out">Log out</a></li>
+              <li>
+                <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false"><%= current_user.username %> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">User</li>
+                  <li><%= link_to 'My profile', user_path(current_user)%></li>
+                  <li><a rel="nofollow" href="#" title="Mozna vubec nevyuzijeme..">Notifications <span class="badge">42</span></a></li>
+                  <li><a rel="nofollow" data-method="delete" href="/users/sign_out">Log out</a></li>
+
+                  <% unless current_user.bands.blank? %>
+                      <li role="separator" class="divider"></li>
+                      <li class="dropdown-header">My bands</li>
+                      <% current_user.bands.each do |band| %>
+                          <li><%= link_to band.title, band_url(band) %></li>
+                      <% end %>
+                  <% end %>
+
+                  <% if current_user.admin? %>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Admin</li>
+                    <li><a href="/admin/">Go to administration</a></li>
+                  <% end %>
+                </ul>
+              </li>
             <% else %>
               <li><%= link_to "Login", "/users/sign_in" , :class => "btn btn-link btn-xs" %></li>
               <li><%= link_to "Register", "/users/sign_up" , :class => "btn btn-primary"   %></li>
@@ -86,18 +108,19 @@
     <div class="container">
       <div class="row">
 
-        <div class="<% if content_for?(:sidebar) %>col-lg-9<% else %>col-lg-12<% end %>">
+        <div class="col-lg-9">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
 
-        <% if content_for?(:sidebar) %>
         <div class="col-lg-3">
           <div class="well sidebar-nav">
+
+            <p>search thingy</p>
+
             <%= yield :sidebar %>
           </div><!--/.well -->
         </div><!--/span-->
-        <% end %>
 
       </div><!--/row-->
 
