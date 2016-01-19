@@ -85,21 +85,19 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-9">
+
+        <div class="<% if content_for?(:sidebar) %>col-lg-9<% else %>col-lg-12<% end %>">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
 
+        <% if content_for?(:sidebar) %>
         <div class="col-lg-3">
           <div class="well sidebar-nav">
-            <% if (current_page?('/home') || current_page?('/')) && user_signed_in?%>
-            <h3>Your profile</h3>
-              <%= render "users/show_profile" %>
-            <% else %>
-            <h3>Something??</h3>
-            <% end %>
+            <%= yield :sidebar %>
           </div><!--/.well -->
         </div><!--/span-->
+        <% end %>
 
       </div><!--/row-->
 

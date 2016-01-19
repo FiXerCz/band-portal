@@ -1,3 +1,10 @@
+<% if user_signed_in? %>
+  <% content_for :sidebar do %>
+    <h3>Your profile</h3>
+    <%= render "users/show_profile" %>
+  <% end %>
+<% end %>
+
 <% unless @uncorfimed_concerts.empty? %>
         <div class="panel-heading  bg-warning ">
           <h3 class="panel-title text-warning">Please, confirm attendance of your band on following concerts:</h3>
