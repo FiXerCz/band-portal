@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # gem 'slim-rails'
 gem 'twitter-bootstrap-rails'
-# gem 'rails_admin'
+gem 'rails_admin'
 gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'cancancan'
