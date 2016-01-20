@@ -12,10 +12,10 @@
         <%= r.label :role, 'Your role in the band', :class => 'control-label col-lg-2' %>
         <div class="col-lg-10">
           <%= r.text_field :role, :class => 'form-control' %>
+          <%=r.error_span(:role) %>
           <br />
           <p>You can add more band members later.</p>
         </div>
-        <%=r.error_span(:role) %>
       </div>
     <% end %>
 
