@@ -14,6 +14,7 @@ class BandsController < ApplicationController
   # GET /bands/1.json
   def show
     @is_fan = @band.fans.include? current_user if user_signed_in?
+    @comments = Comment.where(:band_id => @band.id)
   end
 
   # GET /bands/new
