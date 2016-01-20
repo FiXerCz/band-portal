@@ -18,7 +18,12 @@ class Band < ActiveRecord::Base
   validates :title, :presence => true
   validates :title, :uniqueness => true
   validates :description, :presence => true
+  validate :has_at_lest_one_member
   validate :has_from_one_to_five_genres
+
+  def has_at_lest_one_member
+    errors.add(:role, 'Must have at least 1 member') if self.members.blank?
+  end
 
   def has_from_one_to_five_genres
     errors.add(:genres, 'Must have at least 1 genre') if self.genres.blank?
