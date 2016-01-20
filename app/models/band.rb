@@ -6,8 +6,7 @@ class Band < ActiveRecord::Base
   has_many :performers, :dependent => :destroy
   has_many :concerts, through: :performers
 
-  has_many :comments
-  has_many :users, through: :comments
+  has_many :comments, :dependent => :destroy
 
   has_and_belongs_to_many :fans, :class_name=>'User', :join_table => 'bands_users',
                           :foreign_key => :band_id, :association_foreign_key => :user_id

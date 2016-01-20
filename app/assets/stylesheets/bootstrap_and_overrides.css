@@ -87,3 +87,17 @@ label.required:after {
     height: 28px;
     width: 62%;
 }
+
+.new-comment .col-lg-12 {
+    background-color: transparent;
+}
+
+.tab-content {
+    background-color: #fff;
+    padding: 9px;
+}
+
+.tab-content > .active {
+    padding: 16px;
+    padding-top: 0px;
+}

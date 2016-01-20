@@ -39,7 +39,6 @@
 </div>
 
 <p><%= @band.description %></p>
-
 <h2>Band members</h2>
 
 <dl class="dl-horizontal">
@@ -49,39 +48,20 @@
   <% end %>
 </dl>
 
-<h2>Albums</h2>
+<ul class="nav nav-tabs">
+  <li class="<%= 'active' if params[:tab] == 'albums' || params[:tab].nil? %>"><a href="#" data-toggle="tab" data-target="#albums" >Albums</a></li>
+  <li class="<%= 'active' if params[:tab] == 'concerts' %>"><a href="#" data-toggle="tab" data-target="#concerts">Concerts</a></li>
+  <li class="<%= 'active' if params[:tab] == 'comments' %>"><a href="#" data-toggle="tab" data-target="#comments">Comments</a></li>
+</ul>
 
-<h2>Concerts</h2>
+<div class="tab-content">
+  <div class="<%= if (params[:tab] == 'albums' || params[:tab].nil?)then 'tab-pane active'  else 'tab-pane' end%>" id="albums"> Albums </div>
+  <div class="<%= if (params[:tab] == 'albums')then 'tab-pane active' else 'tab-pane' end%>" id="concerts" > Concerts </div>
+  <div class="<%= if (params[:tab] == 'comments')then 'tab-pane active'  else 'tab-pane' end%>" id="comments" >
+    <%= render :partial => 'comments/band_tab' , :locals => {:comments => @comments} %>
+  </div>
+</div>
 
-<h2>Comments</h2>
-
-<table class="table table-striped comments">
-  <tbody>
-<% @comments.each do |comment| %>
-      <tr><td>
-        <div class="event-date">
-          <p class="event-month"><%= comment.created_at.strftime("%b %Y") %></p>
-          <p class="event-day"><%= comment.created_at.strftime("%e") %></p>
-        </div>
-        <span style="float:right">Posted at <%= comment.created_at.strftime("%k:%M")%></span>
-        <strong><%= User.find(comment.user_id).username %><br></strong>
-        <%= comment.text %><br>
-
-        <% if can? :update, comment %>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_comment_path(comment), :class => 'btn btn-default btn-xs', :style => "float: right" %>
-        <% end %>
-        <% if can? :destroy, comment %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        comment_path(comment), :method => :delete,
-                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                        :class => 'btn btn-xs btn-danger', :style => "float: right" %><% end %>
-      </td></tr>
-  <% end %>
-  </tbody>
-</table>
-
-<%= render :partial => 'comments/form' , :action => 'new' , :object => @band %>
 
 <div class="buttons">
   <%= link_to t('.back', :default => t("helpers.links.back")), bands_path, :class => 'btn btn-default'  %>
