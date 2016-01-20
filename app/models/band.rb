@@ -22,7 +22,7 @@ class Band < ActiveRecord::Base
   validate :has_from_one_to_five_genres
 
   def has_at_lest_one_member
-    errors.add(:role, 'Must have at least 1 member') if self.members.blank?
+    #errors.add(:role, 'Must have at least 1 member') if self.members.blank?
   end
 
   def has_from_one_to_five_genres
