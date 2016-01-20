@@ -14,7 +14,8 @@ class BandsController < ApplicationController
   # GET /bands/1.json
   def show
     @is_fan = @band.fans.include? current_user if user_signed_in?
-    @comments = Comment.where(:band_id => @band.id)
+    random_fan_ids = @band.fans.collect { |fan| fan.id }.sort_by { rand }.slice(0, 6)
+    @fans = User.where(:id => random_fan_ids)
   end
 
   # GET /bands/new
@@ -31,9 +32,6 @@ class BandsController < ApplicationController
   # POST /bands.json
   def create
     @band = Band.new(band_params)
-    @band.band_roles.each do |role|
-      role.user = current_user
-    end
 
     respond_to do |format|
       if @band.save
@@ -114,7 +112,7 @@ class BandsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params.require(:band).permit(:title, :description, :active, band_roles_attributes: [ :id, :role ], genre_ids: [])
+      params.require(:band).permit(:title, :description, :active, band_roles_attributes: [ :id, :role, :user_id ], genre_ids: [])
     end
 
     def role_params

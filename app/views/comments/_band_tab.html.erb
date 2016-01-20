@@ -1,7 +1,7 @@
 <h3>All comments</h3>
 <table class="table comments">
   <tbody>
-  <% @comments.each do |comment| %>
+  <% @band.comments.each do |comment| %>
       <tr><td>
         <span style="float:right">Posted at <%= comment.created_at.strftime("%k:%M")%></span>
         <h4><%= User.find(comment.user_id).username %></h4>

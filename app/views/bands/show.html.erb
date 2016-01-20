@@ -3,6 +3,15 @@
     <% if @band.fans.blank? %>
       <p>Nobody likes this band so far. You can use <strong>Like this</strong> button to become its first fan.</p>
     <% else %>
+        <% @fans.each_slice(2) do |fans| %>
+          <div class="row">
+            <% fans.each do |fan| %>
+              <div class="col-lg-6">
+                <div class="well well-sm text-center"><%= link_to fan.pretty_name, user_path(fan) %></div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
     <% end %>
 
     <% if (can? :update, @band) || (can? :destroy, @band) %>
@@ -58,7 +67,7 @@
   <div class="<%= if (params[:tab] == 'albums' || params[:tab].nil?)then 'tab-pane active'  else 'tab-pane' end%>" id="albums"> Albums </div>
   <div class="<%= if (params[:tab] == 'albums')then 'tab-pane active' else 'tab-pane' end%>" id="concerts" > Concerts </div>
   <div class="<%= if (params[:tab] == 'comments')then 'tab-pane active'  else 'tab-pane' end%>" id="comments" >
-    <%= render :partial => 'comments/band_tab' , :locals => {:comments => @comments} %>
+    <%= render :partial => 'comments/band_tab' %>
   </div>
 </div>
 
