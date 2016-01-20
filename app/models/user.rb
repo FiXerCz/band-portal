@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :band_roles
   has_many :bands, through: :band_roles
 
+  has_many :comments
+  has_many :bands, through: :comments
+
   has_and_belongs_to_many :favourite_bands, :class_name=>'Band', :join_table => 'bands_users',
                           :foreign_key => :user_id, :association_foreign_key => :band_id
 

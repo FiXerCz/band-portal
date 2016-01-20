@@ -1,86 +1,17 @@
-<%= form_for @concert, :html => { :class => "form-horizontal concert" } do |f| %>
-
-  <% if @concert.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@concert.errors.count, "error") %> prohibited this concert from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @concert.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+<%= form_for Comment.new, :url => band_path(@band), :html => { :class => "form-horizontal" } do |f| %>
+  <%= f.hidden_field :id, { :value => params[:id] } %>
 
   <div class="form-group">
-    <%= f.label :title, :class => 'control-label col-lg-2 required' %>
+    <%= f.label :text, :class => 'control-label col-lg-2 required' %>
     <div class="col-lg-10">
-      <%= f.text_field :title, :class => 'form-control' %>
-      <%=f.error_span(:title) %>
+      <%= f.text_field :text, :class => 'form-control' %>
+      <%=f.error_span(:text) %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :location, :class => 'control-label col-lg-2 required' %>
-    <div class="col-lg-10">
-      <%= f.text_field :location, :class => 'form-control' %>
-      <%=f.error_span(:location) %>
-    </div>
-
-  </div>
-  <div class="form-group">
-      <%= f.label :capacity, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%= f.text_field :capacity, :class => 'form-control' %>
-        <%=f.error_span(:capacity) %>
-      </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :from_date, :class => 'control-label col-lg-2 required' %>
-    <div class="col-lg-10">
-      <%= f.datetime_select :from_date, :class => 'form-control' %>
-      <%=f.error_span(:from_date) %>
-    </div>
-  </div>
-  <div class="form-group">
-      <%= f.label :to_date, :class => 'control-label col-lg-2 required' %>
-      <div class="col-lg-10">
-        <%= f.datetime_select :to_date, :class => 'form-control' %>
-        <%=f.error_span(:to_date) %>
-      </div>
-  </div>
-  <div class="form-group">
-      <%= f.label :price, :class => 'control-label col-lg-2 required' %>
-      <div class="col-lg-10">
-        <%= f.text_field :price, :class => 'form-control' %>
-        <%=f.error_span(:price) %>
-      </div>
-  </div>
-  <div class="form-group">
-      <%= f.label :performing_bands, :class => 'control-label col-lg-2' %>
-      <div class="col-lg-10">
-        <%
-           selected_bands = []
-           unless @concert.id.nil?
-             bands_id = Performer.where(:concert_id => @concert.id).select(:band_id)
-             bands_id.each do |id|
-               selected_bands.push(Band.where(:id => id.band_id)[0].id)
-             end
-           end
-        %>
-        <%= select_tag(:performing_bands, options_from_collection_for_select(Band.all,"id","title",{:selected=>selected_bands}), {:multiple => true, :class => "bands-select form-control" }) %>
-        <%=f.error_span(:performing_bands) %>
-      </div>
-  </div>
-
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                concerts_path, :class => 'btn btn-default' %>
     </div>
   </div>
 

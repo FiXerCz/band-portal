@@ -44,7 +44,7 @@
 
 <table class="table table-striped concerts">
   <tbody>
-  <% @corfimed_concerts.each do |concert|
+  <% @corfimed_concerts.uniq{|x| x[1][0].id}.each do |concert|
     concert = concert[1][0]
   %>
       <%= render "home/table", :locals => {:concert => concert} %>
