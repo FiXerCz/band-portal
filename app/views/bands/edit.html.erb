@@ -1,3 +1,10 @@
+<% content_for :sidebar do %>
+    <h3>Actions</h3>
+    <ul class="nav nav-pills nav-stacked">
+      <li role="presentation"><%= link_to 'Manage albums', '#' %></li>
+    </ul>
+<% end %>
+
 <%- model_class = Band -%>
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
@@ -18,7 +25,7 @@
 
       <%= f.fields_for :band_roles do |r| %>
           <tr>
-            <td><%= r.label :role, r.object.user.username, :class => 'control-label col-lg-2' %></td>
+            <td><%= r.label :role, r.object.user.pretty_name, :class => 'control-label' %></td>
             <td>
               <div class="input-group">
               <%= r.text_field :role, :class => 'form-control' %><%=r.error_span(:role) %>
