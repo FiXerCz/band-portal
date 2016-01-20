@@ -47,7 +47,7 @@
             <% if user_signed_in? %>
               <li>
                 <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown" role="button"
-                   aria-haspopup="true" aria-expanded="false"><%= current_user.username %> <span class="caret"></span></a>
+                   aria-haspopup="true" aria-expanded="false"><%= current_user.pretty_name %> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-header">User</li>
                   <li><%= link_to 'My profile', user_path(current_user)%></li>
