@@ -7,7 +7,7 @@
 
     <%= render :partial => 'form', :locals => {:f => f, :action => 'new'} %>
 
-    <%= f.fields_for :band_roles do |r| %>
+    <%= f.fields_for :band_roles, @band.band_roles do |r| %>
       <div class="form-group">
         <%= r.label :role, 'Your role in the band', :class => 'control-label col-lg-2' %>
         <div class="col-lg-10">
