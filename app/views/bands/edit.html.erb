@@ -17,7 +17,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>Member</th>
+        <th class="col-md-2">Member</th>
         <th>Role in the band</th>
       </tr>
       </thead>
@@ -51,7 +51,7 @@
     </table>
 
     <div class="form-group">
-      <div class="col-lg-12 text-right">
+      <div class="col-lg-offset-2 col-lg-10">
         <%= f.submit nil, :class => 'btn btn-primary' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")), bands_path, :class => 'btn btn-default' %>
       </div>
