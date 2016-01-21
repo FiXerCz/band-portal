@@ -8,18 +8,17 @@
 </div>
 
 <div class="fans">
-  <% @users.each do |user|
-    bandroles = BandRole.where(:user_id => user.id)
-  %>
+  <% @users.each do |user| %>
   <div class="fan">
-    <p class="fan-name"><%= link_to user.username, user_path(user) %><br></p>
+    <span class="fan-name"><%= link_to user.username, user_path(user) %></span>
+    <%if user.fullname %>(<em><%= user.fullname %></em>)<% end %>
     <p><%= user.email %></p>
-    <% if bandroles.length > 0 %>
+    <% if user.band_roles.length > 0 %>
         Member of
-        <% if bandroles.length == 1 %>
-            <%= Band.where(:id => bandroles[0].band_id)[0].title %> (as <%= bandroles[0].role %>)<br>
+        <% if user.band_roles.length == 1 %>
+            <%= Band.find(user.band_roles[0].band_id).title %> (as <%= user.band_roles[0].role %>)<br>
         <%else %>
-            <%= bandroles.length %> bands
+            <%= user.band_roles.length %> bands
         <% end %>
     <% end %>
     </dl>

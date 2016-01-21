@@ -1,22 +1,29 @@
 <%- model_class = User -%>
 
 <dl>
+  <dt><strong><%= model_class.human_attribute_name(:username) %>:</strong> </dt>
+  <dd><%= @user.username %></dd>
+  <% if @user.fullname %>
+    <dt><strong><%= model_class.human_attribute_name(:fullname) %>:</strong></dt>
+    <dd><%= @user.fullname %></dd>
+  <% end %>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
-  <% bandroles = BandRole.where(:user_id => @user.id)
-     if bandroles.length > 0 %>
+  <% if @user.band_roles.length > 0 %>
       <br>
       <dt><strong><%= model_class.human_attribute_name(:member_of) %>:</strong></dt>
-      <% bandroles.each do |role| %>
-          <dd><%= Band.where(:id => role.band_id)[0].title %> (as <%= role.role %>)</dd>
+      <% @user.band_roles.each do |role| %>
+          <% band = Band.find(role.band_id)%>
+          <dd><%= link_to band.title, band_path(band) %> (as <%= role.role %>)</dd>
       <% end %>
   <% end %>
+
   <% unless @fan.empty? %>
       <br>
-  <dt><strong><%= model_class.human_attribute_name(:your_favourite_bands) %></strong>:</dt>
-  <% @fan.each do |band|%>
-    <dd><%= band.title %></dd>
-      <% end %>
+        <dt><strong><%= model_class.human_attribute_name(:your_favourite_bands) %></strong>:</dt>
+        <% @fan.each do |band|%>
+            <dd><%= link_to band.title, band_path(band) %></dd>
+        <% end %>
   <% end %>
 </dl>
 

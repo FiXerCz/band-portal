@@ -46,7 +46,7 @@
   <dd> $<%= @concert.price %></dd>
   <br>
   <dt><strong><%= model_class.human_attribute_name(:event_added_by) %>:</strong></dt>
-  <dd> <%= User.where(:id => @concert.user_id)[0].email %></dd>
+  <dd> <%= User.where(:id => @concert.user_id)[0].pretty_name %> (<em><%= User.find(@concert.user_id).email %></em>)</dd>
 </dl>
 
 
