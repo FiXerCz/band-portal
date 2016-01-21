@@ -52,20 +52,24 @@
 
 <dl class="dl-horizontal">
   <% @band.band_roles.each do |band_member| %>
-  <dt><strong><%= band_member.user.pretty_name %></strong></dt>
+  <dt><strong><%= link_to band_member.user.pretty_name, user_path(band_member.user) %></strong></dt>
   <dd><em>(<%= band_member.role %>)</em></dd>
   <% end %>
 </dl>
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs band-tabs">
   <li class="<%= 'active' if params[:tab] == 'albums' || params[:tab].nil? %>"><a href="#" data-toggle="tab" data-target="#albums" >Albums</a></li>
   <li class="<%= 'active' if params[:tab] == 'concerts' %>"><a href="#" data-toggle="tab" data-target="#concerts">Concerts</a></li>
   <li class="<%= 'active' if params[:tab] == 'comments' %>"><a href="#" data-toggle="tab" data-target="#comments">Comments</a></li>
 </ul>
 
-<div class="tab-content">
+<div class="tab-content band-tabs">
   <div class="<%= if (params[:tab] == 'albums' || params[:tab].nil?)then 'tab-pane active'  else 'tab-pane' end%>" id="albums"> Albums </div>
-  <div class="<%= if (params[:tab] == 'albums')then 'tab-pane active' else 'tab-pane' end%>" id="concerts" > Concerts </div>
+  <div class="<%= if (params[:tab] == 'albums')then 'tab-pane active' else 'tab-pane' end%>" id="concerts" >
+    <% @band.concerts.each do |concert| %>
+        <%= render :partial => 'concerts/concert', :locals => {:concert => concert} %>
+    <% end %>
+  </div>
   <div class="<%= if (params[:tab] == 'comments')then 'tab-pane active'  else 'tab-pane' end%>" id="comments" >
     <%= render :partial => 'comments/band_tab' %>
   </div>

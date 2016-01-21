@@ -92,12 +92,29 @@ label.required:after {
     background-color: transparent;
 }
 
-.tab-content {
-    background-color: #fff;
-    padding: 9px;
+/* Band detail page - tabs */
+ul.band-tabs {
+    border-color: #aaaaaa;
 }
 
-.tab-content > .active {
-    padding: 16px;
-    padding-top: 0px;
+ul.band-tabs > li:hover > a {
+    border-bottom: 1px solid #aaaaaa;
+}
+
+ul.band-tabs > li.active > a,
+ul.band-tabs > li.active:hover > a,
+ul.band-tabs > li.active > a:focus {
+    border-color: #aaaaaa;
+    border-bottom: 1px solid #e7e7e7;
+    background: inherit;
+}
+
+.band-tabs.tab-content {
+    background-color: inherit;
+    padding: 0px;
+    border-color: #000;
+}
+
+.band-tabs.tab-content > .active {
+    padding-top: 10px;
 }
