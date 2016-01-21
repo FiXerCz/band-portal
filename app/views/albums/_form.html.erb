@@ -32,7 +32,10 @@
   <div class="form-group">
     <%= f.label :band_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :band_id, :class => 'form-control' %>
+      <%= f.collection_select(:band_id,
+                   Band.all, :id, :title,
+                   {:class => 'form_control', :prompt => 'Select new band'})
+      %>
     </div>
     <%=f.error_span(:band_id) %>
   </div>
