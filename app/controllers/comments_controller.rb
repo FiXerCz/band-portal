@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to band_path(params[:id], tab:"comments"), notice: 'Comment was successfully posted.' }
         format.json { render :show, status: :created, location: band_path(params[:id], tab:"comments") }
       else
-        format.html { redirect_to band_path(params[:id], tab:"comments"), alert: 'Comment couldn\'t be posted - coment text cannot be empty.' }
+        format.html { redirect_to band_path(params[:id], tab:"comments"), alert: 'Comment couldn\'t be posted - comment text cannot be empty.' }
         format.json { render json: band_path(params[:id], tab:"comments").errors, status: :unprocessable_entity }
       end
     end
@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to band_path(params[:comment][:id], tab:"comments"), notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: band_path(params[:comment][:id], tab:"comments") }
       else
-        format.html { render :edit }
+        format.html { redirect_to band_path(params[:comment][:id], tab:"comments"), alert: 'Comment couldn\'t be updated - comment text cannot be empty.' }
         format.json { render json: band_path(params[:comment][:id], tab:"comments").errors, status: :unprocessable_entity }
       end
     end

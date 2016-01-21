@@ -4,7 +4,10 @@ class ConcertsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @concerts = Concert.where("title LIKE ?", "%#{params[:search]}%" ).page(params[:page]).order('from_date DESC')
+    @concerts = Concert
+      .where("title LIKE ?", "%#{params[:search]}%")
+      .where('from_date >= ?', DateTime.current)
+      .page(params[:page]).order('from_date DESC')
   end
 
   def show

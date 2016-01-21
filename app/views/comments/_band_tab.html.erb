@@ -15,8 +15,6 @@
             <%= button_tag(type: 'button', :class => "btn btn-default btn-xs edit-comment", :id => "c#{comment.id}", :style => "float: right") do
                 content_tag(:span, 'Edit comment')
                 end %>
-            <%#= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_comment_path(comment), :class => 'btn btn-default btn-xs', :style => "float: right" %>
         <% end %>
         <% if can? :destroy, comment %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

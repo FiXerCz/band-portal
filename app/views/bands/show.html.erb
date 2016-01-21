@@ -66,9 +66,19 @@
 <div class="tab-content band-tabs">
   <div class="<%= if (params[:tab] == 'albums' || params[:tab].nil?)then 'tab-pane active'  else 'tab-pane' end%>" id="albums"> Albums </div>
   <div class="<%= if (params[:tab] == 'albums')then 'tab-pane active' else 'tab-pane' end%>" id="concerts" >
-    <% @band.concerts.each do |concert| %>
+
+    <%= check_box_tag(name = "show_past") %>
+    <%= label_tag 'show_past', 'Include past events', :style => "font-weight: normal" %>
+
+    <% @band.concerts.where('from_date >= ?', DateTime.current).each do |concert| %>
         <%= render :partial => 'concerts/concert', :locals => {:concert => concert} %>
     <% end %>
+    <div id="past" class="hidden">
+      <h4>Past events:</h4>
+        <% @band.concerts.where('from_date < ?', DateTime.current).each do |concert| %>
+            <%= render :partial => 'concerts/concert', :locals => {:concert => concert} %>
+        <% end %>
+    </div>
   </div>
   <div class="<%= if (params[:tab] == 'comments')then 'tab-pane active'  else 'tab-pane' end%>" id="comments" >
     <%= render :partial => 'comments/band_tab' %>
@@ -79,3 +89,14 @@
 <div class="buttons">
   <%= link_to t('.back', :default => t("helpers.links.back")), bands_path, :class => 'btn btn-default'  %>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#show_past').change(function () {
+            if (this.checked)
+                $("#past").attr("class","visible");
+            else
+                $("#past").attr("class","hidden");
+        });
+    })
+</script>
