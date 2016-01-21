@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       delete 'drop-member/:mid' => 'bands#destroy_member'
     end
     member do
-      #post '/:id' => 'comments#create'
+      #patch 'update' => 'comments#update'
       get 'add-member' => 'bands#add_member'
       post 'add-member' => 'bands#create_member'
       post 'fan' => 'bands#manage_fan'
@@ -17,13 +17,12 @@ Rails.application.routes.draw do
 
   resources :concerts
   resources :comments do
-    collection do
-      #get '' => 'bands#show'
-    end
+    #patch 'update' => ''
   end
 
   match "concerts/:id", :via=>:post, :controller=>"concerts", :action=>"confirm"
-  match 'bands/:id' => 'comments#create' , :via=>:post, :controller=>"comments", :action=>"create"
+  match "bands/:id" => 'comments#update', :via=>:patch, :controller=>"comments", :action=>"update"
+  match "bands/:id" => 'comments#create', :via=>:post, :controller=>"comments", :action=>"create"
 
   get 'home/index'
   get 'home' => 'home#index'

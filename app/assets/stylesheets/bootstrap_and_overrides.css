@@ -88,7 +88,8 @@ label.required:after {
     width: 62%;
 }
 
-.new-comment .col-lg-12 {
+.new-comment .col-lg-12,
+.comments .col-lg-12 {
     background-color: transparent;
 }
 
@@ -100,4 +101,9 @@ label.required:after {
 .tab-content > .active {
     padding: 16px;
     padding-top: 0px;
+}
+
+.comments .btn,
+.concerts .btn {
+    margin-right: 5px;
 }

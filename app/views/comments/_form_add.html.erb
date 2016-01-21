@@ -1,4 +1,4 @@
-<%= form_for @comment, :html => { :class => "form-horizontal" } do |f| %>
+<%= form_for Comment.new, :url => band_path(params[:id]), :html => { :class => "form-horizontal" } do |f| %>
   <%= f.hidden_field :id, { :value => params[:id] } %>
 
   <div class="form-group">
@@ -10,10 +10,7 @@
 
   <div class="form-group">
     <div class="col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary btn-xs' %>
-      <%= button_tag(type: 'button', :class => "btn btn-default btn-xs back", :id => "c#{@comment.id}") do
-    content_tag(:span, 'Cancel editation')
-    end %>
+      <%= f.submit nil, :class => 'btn btn-primary' %>
     </div>
   </div>
 

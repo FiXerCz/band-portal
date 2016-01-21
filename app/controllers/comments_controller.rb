@@ -16,8 +16,8 @@ class CommentsController < ApplicationController
     @comment.band_id = params[:id]
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to band_path(params[:id], tab:"comments")<<"#comments", notice: 'Comment was successfully posted.' }
-        format.json { render :show, status: :created, location: band_path(params[:id], tab:"comments")<<"#comments" }
+        format.html { redirect_to band_path(params[:id], tab:"comments"), notice: 'Comment was successfully posted.' }
+        format.json { render :show, status: :created, location: band_path(params[:id], tab:"comments") }
       else
         format.html { redirect_to band_path(params[:id], tab:"comments"), alert: 'Comment couldn\'t be posted - coment text cannot be empty.' }
         format.json { render json: band_path(params[:id], tab:"comments").errors, status: :unprocessable_entity }
@@ -26,14 +26,22 @@ class CommentsController < ApplicationController
   end
 
   def update
-
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html { redirect_to band_path(params[:comment][:id], tab:"comments"), notice: 'Comment was successfully updated.' }
+        format.json { render :show, status: :ok, location: band_path(params[:comment][:id], tab:"comments") }
+      else
+        format.html { render :edit }
+        format.json { render json: band_path(params[:comment][:id], tab:"comments").errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     band_id = @comment.band_id
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to band_path(band_id), notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to band_path(band_id, tab:"comments"), notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

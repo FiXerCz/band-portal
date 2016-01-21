@@ -3,19 +3,26 @@
   <tbody>
   <% @band.comments.each do |comment| %>
       <tr><td>
-        <span style="float:right">Posted at <%= comment.created_at.strftime("%k:%M")%></span>
+        <span style="float:right"><%= comment.created_at.utc.strftime("%e. %B. %Y at %k:%M") %></span>
         <h4><%= User.find(comment.user_id).username %></h4>
-        <%= comment.text %><br>
-
+        <div id="show-c<%= comment.id %>">
+          <%= comment.text %>
+        </div>
+        <div id="edit-c<%= comment.id %>" class="hidden">
+          <%= render :partial => 'comments/form', :locals => {:@comment => comment} %>
+        </div>
         <% if can? :update, comment %>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+            <%= button_tag(type: 'button', :class => "btn btn-default btn-xs edit-comment", :id => "c#{comment.id}", :style => "float: right") do
+                content_tag(:span, 'Edit comment')
+                end %>
+            <%#= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_comment_path(comment), :class => 'btn btn-default btn-xs', :style => "float: right" %>
         <% end %>
         <% if can? :destroy, comment %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                         comment_path(comment), :method => :delete,
                         :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                        :class => 'btn btn-xs btn-danger', :style => "float: right" %><% end %>
+                        :class => 'btn btn-xs btn-danger delete-comment', :id => "c#{comment.id}", :style => "float: right" %><% end %>
       </td></tr>
   <% end %>
   </tbody>
@@ -24,6 +31,28 @@
 <% if can? :create, Comment %>
     <div class="new-comment">
       <h3>Add new comment</h3>
-      <%= render :partial => 'comments/form' , :action => 'new' , :object => @band %>
+      <%= render :partial => 'comments/form_add' , :action => 'new' , :object => @band %>
     </div>
 <% end %>
+
+<script>
+
+    $(document).ready(function(){
+        $('.edit-comment').click(function () {
+            // hide actual content and show form
+            $("#show-"+this.id).attr("class","hidden");
+            $("#edit-"+this.id).attr("class","visible");
+            //hide edit and delete buttons
+            $(".edit-comment#"+this.id).attr("class","btn btn-default btn-xs edit-comment hidden");
+            $(".delete-comment#"+this.id).attr("class","btn btn-xs btn-danger delete-comment hidden");
+        });
+
+        $('.back').click(function () {
+            $("#edit-"+this.id).attr("class","hidden");
+            $("#show-"+this.id).attr("class","visible");
+            $(".edit-comment#"+this.id).attr("class","btn btn-default btn-xs edit-comment visible");
+            $(".delete-comment#"+this.id).attr("class","btn btn-xs btn-danger delete-comment visible");
+        });
+    })
+
+</script>
