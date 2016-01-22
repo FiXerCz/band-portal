@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   resources :songs
-  resources :albums
+  #resources :albums
 
   devise_for :users
 
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     collection do
       delete 'drop-member/:mid' => 'bands#destroy_member'
     end
+    resources :albums
     member do
       #patch 'update' => 'comments#update'
       get 'add-member' => 'bands#add_member'
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
   match "concerts/:id", :via=>:post, :controller=>"concerts", :action=>"confirm"
   match "bands/:id" => 'comments#update', :via=>:patch, :controller=>"comments", :action=>"update"
   match "bands/:id" => 'comments#create', :via=>:post, :controller=>"comments", :action=>"create"
+
+  #get 'bands/:id/albums' => 'albums#index', as: :albums
 
   get 'home/index'
   get 'home' => 'home#index'

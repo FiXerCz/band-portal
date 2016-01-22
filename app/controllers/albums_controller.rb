@@ -16,10 +16,13 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   def new
     @album = Album.new
+    @band = params[:band_id]
   end
 
   # GET /albums/1/edit
   def edit
+    @band = params[:band_id]
+    @album = Album.new(album_params)
   end
 
   # POST /albums
