@@ -3,8 +3,9 @@
 
   Use Font Awesome icons (default)
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
-  =require twitter-bootstrap-static/fontawesome
+  =require twitter-bootstrap-static/sprites
   */
+
 
 .table-striped > tbody > tr:nth-child(2n) {
     background-color: #d7d7d7;

@@ -34,7 +34,7 @@
     <%= link_to "More information", concert_path(concert), :style => "float: right", :class => "btn-link"%>
     <% if can? :update, concert %>
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                    edit_concert_path(concert), :class => 'btn btn-default btn-xs', :style => "float: right" %>
+                    edit_concert_path(concert), :class => 'btn btn-default btn-xs', :style => "float: right", 'data-no-turbolink' => true %>
     <% end %>
     <% if can? :destroy, concert %>
         <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

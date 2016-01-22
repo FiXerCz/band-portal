@@ -49,14 +49,13 @@
   <dd> <%= User.where(:id => @concert.user_id)[0].pretty_name %> (<em><%= User.find(@concert.user_id).email %></em>)</dd>
 </dl>
 
-
 <div class="buttons">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               concerts_path, :class => 'btn btn-default'  %>
 
   <% if can? :update, @concert %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_concert_path(@concert), :class => 'btn btn-default' %>
+              edit_concert_path(@concert), :class => 'btn btn-default', 'data-no-turbolink' => true %>
   <% end %>
   <% if can? :destroy, @concert %>
     <%= link_to t('.destroy', :default => t("helpers.links.destroy")),concert_path(@concert),:method => 'delete',

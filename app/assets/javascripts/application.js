@@ -16,6 +16,9 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-switch
+//= require moment
+//= require bootstrap-datetimepicker
+
 $(document).ready(function() {
     if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
     return $('a[data-toggle="tab"]').on('shown', function(e) {
