@@ -79,6 +79,7 @@ label.required:after {
     line-height: 1.5;
 }
 
+/*
 .well .form-control {
     height: 25px;
     padding: 3px 6px;
@@ -88,6 +89,7 @@ label.required:after {
     height: 28px;
     width: 62%;
 }
+*/
 
 .new-comment .col-lg-12,
 .comments .col-lg-12 {

@@ -20,6 +20,12 @@ class Band < ActiveRecord::Base
   validate :has_at_lest_one_member
   validate :has_from_one_to_five_genres
 
+  def band_genres
+    genres.collect { |x| x.title }.join ' / '
+  end
+
+  private
+
   def has_at_lest_one_member
     errors.add(:role, 'Must have at least 1 member') if self.band_roles.blank?
   end
@@ -29,7 +35,4 @@ class Band < ActiveRecord::Base
     errors.add(:genres, 'Cannot have more than 5 genres') if self.genres.size > 5
   end
 
-  def band_genres
-    genres.collect { |x| x.title }.join ' / '
-  end
 end
