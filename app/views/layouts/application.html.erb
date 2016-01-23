@@ -105,17 +105,22 @@
     </div>
 
     <div class="container">
-      <div class="row">
+      <div class="row web-layout">
         <% conditions = params[:controller].include?("devise") %>
         <div class="<% unless conditions %>col-lg-9<% else %>col-lg-12<% end %>">
-          <%= bootstrap_flash %>
-          <%= yield %>
-          <div style="clear:both;"></div>
+          <div class="web-content">
+            <div class="p">
+              <%= bootstrap_flash %>
+              <%= yield %>
+              <div style="clear:both;"></div>
+            </div>
+          </div>
         </div>
 
         <% unless conditions %>
         <div class="col-lg-3">
-          <div class="well sidebar-nav">
+          <div class="web-sidebar">
+            <div class="p">
 
             <% actual_route = Rails.application.routes.recognize_path(request.original_url)
                search_entity = ['bands', 'users', 'concerts'].include?(actual_route[:controller]) ? actual_route[:controller] : 'bands' %>
@@ -145,7 +150,8 @@
                   </div>
               <% end %>
 
-            <%= yield :sidebar %>
+              <%= yield :sidebar %>
+            </div>
           </div><!--/.well -->
         </div><!--/span-->
         <% end %>
@@ -153,7 +159,7 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2016</p>
+        <p>&copy; BandPortal 2016</p>
       </footer>
 
     </div> <!-- /container -->

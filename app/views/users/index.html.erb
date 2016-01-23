@@ -7,21 +7,27 @@
   <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 </div>
 
-<div class="fans">
-  <% @users.each do |user| %>
-  <div class="fan">
-    <span class="fan-name"><%= link_to user.username, user_path(user) %></span>
-    <%if user.fullname %>(<em><%= user.fullname %></em>)<% end %>
-    <p><%= user.email %></p>
-    <% if user.band_roles.length > 0 %>
-        Member of
-        <% if user.band_roles.length == 1 %>
-            <%= Band.find(user.band_roles[0].band_id).title %> (as <%= user.band_roles[0].role %>)<br>
-        <%else %>
-            <%= user.band_roles.length %> bands
-        <% end %>
+<% @users.each_slice(4) do |users| %>
+  <div class="row">
+    <% users.each do |user| %>
+    <div class="col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="fan-name"><%= link_to user.pretty_name, user_path(user) %></span>
+        </div>
+        <div class="panel-body" style="min-height: 100px">
+          <p><%= user.email %></p>
+          <% if user.band_roles.length > 0 %>
+              Member of
+              <% if user.band_roles.length == 1 %>
+                  <%= Band.find(user.band_roles[0].band_id).title %> (as <%= user.band_roles[0].role %>)<br>
+              <% else %>
+                  <%= user.band_roles.length %> bands
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <% end %>
-    </dl>
   </div>
-  <% end %>
-</div>
+<% end %>
