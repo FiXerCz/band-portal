@@ -3,7 +3,7 @@
   <tbody>
   <% @band.comments.each do |comment| %>
       <tr><td>
-        <span style="float:right"><%= comment.created_at.utc.strftime("%e. %B. %Y at %k:%M") %></span>
+        <span style="float:right"><%= comment.created_at.strftime("%e. %B. %Y at %k:%M") %></span>
         <h4><%= User.find(comment.user_id).username %></h4>
         <div id="show-c<%= comment.id %>">
           <%= comment.text %>
