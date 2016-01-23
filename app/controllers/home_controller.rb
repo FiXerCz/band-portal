@@ -25,8 +25,11 @@ class HomeController < ApplicationController
   private
 
   def push_concerts(concerts, role, perf)
-    concerts << []
-    concerts[concerts.length-1] << Band.where(:id => role.band_id)
-    concerts[concerts.length-1] << Concert.where(:id => perf.concert_id)
+    concert = Concert.where(:id => perf.concert_id).where('from_date >= ?', DateTime.current)
+    unless concert.empty?
+      concerts << []
+      concerts[concerts.length-1] << Band.where(:id => role.band_id)
+      concerts[concerts.length-1] << concert
+    end
   end
 end

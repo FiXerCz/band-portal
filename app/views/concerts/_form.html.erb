@@ -88,9 +88,7 @@
 <script type="text/javascript">
     <%
      minDate = DateTime.current.to_s
-     from = DateTime.current.to_s
-     to = DateTime.current.to_s
-     unless @concert.id.nil?
+     unless @concert.id.nil? || @concert.from_date.nil? || @concert.to_date.nil?
         from = @concert.from_date.strftime("%Y-%m-%dT%H:%M:%S%:z")
         to = @concert.to_date.strftime("%Y-%m-%dT%H:%M:%S%:z")
         end %>
@@ -98,20 +96,33 @@
     $(document).ready(function () {
         $('#datetimepicker_from').datetimepicker({
             format: 'D. M. YYYY, H:mm',
-            defaultDate: "<%= from %>"
-            <% if from == minDate %>,minDate: "<%= minDate %>"<% end %>
+            widgetPositioning: {
+                horizontal: 'auto',
+                vertical: 'bottom'
+            },
+            useCurrent: false
+            <% if from %> ,defaultDate: "<%= from %>" <% end %>
+            ,minDate: "<%= minDate %>"
         });
         $('#datetimepicker_to').datetimepicker({
             format: 'D. M. YYYY, H:mm',
-            defaultDate: "<%= to %>"
-            <% if to == minDate %>,minDate: "<%= minDate %>"<% end %>
+            widgetPositioning: {
+                horizontal: 'auto',
+                vertical: 'bottom'
+            },
+            useCurrent: false
+            <% if to %> ,defaultDate: "<%= to %>"<% else %> ,defaultDate: "" <% end %>
+            ,minDate: "<%= minDate %>"
         })
 
-        window.onload = function() {
+       window.onload = function() {
             if(!window.location.hash) {
+                <% if (params[:concert]).nil? %>
                 window.location = window.location + '#loaded';
-                window.location.reload();
+                window.location.reload()
+                <% end %>
             }
         }
+
     });
 </script>

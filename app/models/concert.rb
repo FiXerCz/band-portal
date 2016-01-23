@@ -3,8 +3,10 @@ class Concert < ActiveRecord::Base
   validates :title, :location, :from_date, :to_date, :price, :presence => true
   validates :capacity, numericality: { only_integer: true }, allow_blank: true
   validates :price, numericality: { greather_than: 0 }
-  validates_datetime :from_date, on_or_after: lambda { DateTime.current }
-  validates_datetime :to_date, :after => :from_date
+  validates_datetime :from_date,
+                     on_or_after: lambda { DateTime.current }
+  validates_datetime :to_date, :after => :from_date,
+                     :after_message => "must be after 'From date'"
 
   has_many :performers, :dependent => :destroy
   has_many :bands, through: :performers
