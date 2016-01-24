@@ -7,7 +7,7 @@ class ConcertsController < ApplicationController
     @concerts = Concert
       .where("title LIKE ?", "%#{params[:search]}%")
       .where('from_date >= ?', DateTime.current)
-      .page(params[:page]).order('from_date DESC')
+      .page(params[:page]).order('from_date ASC')
   end
 
   def show
