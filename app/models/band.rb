@@ -14,6 +14,10 @@ class Band < ActiveRecord::Base
   has_and_belongs_to_many :genres
 
   accepts_nested_attributes_for :band_roles
+  has_attached_file :header, styles: { large: "1200x450", medium: "800x300>", thumb: "450x200>" },
+                    default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :header, content_type: /\Aimage\/.*\Z/
+  validate :image_dimensions
   validates :title, :presence => true
   validates :title, :uniqueness => true
   validates :description, :presence => true
@@ -33,6 +37,18 @@ class Band < ActiveRecord::Base
   def has_from_one_to_five_genres
     errors.add(:genres, 'Must have at least 1 genre') if self.genres.blank?
     errors.add(:genres, 'Cannot have more than 5 genres') if self.genres.size > 5
+  end
+
+  def image_dimensions
+    temp_file = header.queued_for_write[:original]
+    unless temp_file.nil?
+      required_width  = 1200
+      required_height = 450
+      dimensions = Paperclip::Geometry.from_file(temp_file.path)
+
+      errors.add(:image, "Header width must be #{required_width}px") unless dimensions.width == required_width
+      errors.add(:image, "Header height must be #{required_height}px") unless dimensions.height == required_height
+    end
   end
 
 end

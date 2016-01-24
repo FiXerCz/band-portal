@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120152611) do
+ActiveRecord::Schema.define(version: 20160124182115) do
 
   create_table "band_roles", force: :cascade do |t|
     t.string  "role",    null: false
@@ -26,8 +26,12 @@ ActiveRecord::Schema.define(version: 20160120152611) do
     t.string   "title"
     t.text     "description"
     t.boolean  "active"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "header_file_name"
+    t.string   "header_content_type"
+    t.integer  "header_file_size"
+    t.datetime "header_updated_at"
   end
 
   create_table "bands_genres", id: false, force: :cascade do |t|

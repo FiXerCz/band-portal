@@ -31,6 +31,15 @@
     <% end %>
 <% end %>
 
+<% if @band.header.exists? %>
+  <% content_for :header do %>
+    <div class="header" style="background-image: url(<%= @band.header.url(:large) %>)">
+      <div class="header-text"><%= @band.title %></div>
+      <div class="header-text text-muted"><%= @band.band_genres %></div>
+    </div>
+  <% end %>
+<% end %>
+
 <div class="page-header">
   <div class="clearfix">
     <h1 class="pull-left"><%= @band.title %></h1>

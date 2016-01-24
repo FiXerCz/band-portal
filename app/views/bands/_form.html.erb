@@ -25,7 +25,7 @@
   <%= f.label :description, :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
     <%= f.text_area :description, :class => 'form-control' %>
-    <%=f.error_span(:description) %>
+    <%= f.error_span(:description) %>
   </div>
 </div>
 
@@ -34,7 +34,7 @@
   <div class="col-lg-10">
     <%= f.select :genre_ids, get_all_genres.collect { |x| [x.title, x.id] }, {},
                  :multiple => true, :class => 'form-control', :size => '8' %>
-    <%=f.error_span(:genres) %>
+    <%= f.error_span(:genres) %>
   </div>
 </div>
 
@@ -45,10 +45,36 @@
     <%= f.label :active, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.check_box :active %>
-      <%=f.error_span(:active) %>
+      <%= f.error_span(:active) %>
     </div>
   </div>
 <% end %>
+
+<div class="form-group">
+  <%= f.label :header, :class => 'control-label col-lg-2', 'data-toggle' => 'tooltip', 'data-placement' => 'right',
+              :title => 'Image dimensions: width 1200px, height: 450' %>
+  <div class="col-lg-10">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <span class="btn btn-default btn-file">
+          Browse <%= f.file_field :header %>
+        </span>
+      </span>
+      <input type="text" class="form-control" value="<%= @band.header_file_name || 'click \'Browse\' to select an image' %>" readonly>
+    </div>
+    <%= f.error_span(:header) %>
+
+    <% if @band.header.exists? %>
+        <br />
+        <div class="thumbnail">
+          <%= image_tag @band.header.url(:medium), :alt => @band.header_file_name, :class => 'img-responsive' %>
+          <div class="caption text-center">
+            <p><a href="#" class="btn btn-primary" role="button">Remove image</a></p>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
 
 <h2>Band members</h2>
 
