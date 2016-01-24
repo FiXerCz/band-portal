@@ -1,3 +1,4 @@
+<%# SIDEBAR CONTENT %>
 <% content_for :sidebar do %>
     <h3>Fans <span class="badge"><%= @band.fans.size %></span></h3>
     <% if @band.fans.blank? %>
@@ -31,6 +32,7 @@
     <% end %>
 <% end %>
 
+<%# HEADER %>
 <% if @band.header.exists? %>
   <% content_for :header do %>
     <div class="header" style="background-image: url(<%= @band.header.url(:large) %>)">
@@ -40,6 +42,7 @@
   <% end %>
 <% end %>
 
+<%# PAGE CONTENT %>
 <div class="page-header">
   <div class="clearfix">
     <h1 class="pull-left"><%= @band.title %></h1>

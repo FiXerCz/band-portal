@@ -46,6 +46,7 @@ class BandsController < ApplicationController
   # PATCH/PUT /bands/1.json
   def update
     respond_to do |format|
+      @band.header = nil if params[:remove_header]
       if @band.update(band_params)
         format.html { redirect_to @band, notice: 'Band was successfully updated.' }
       else

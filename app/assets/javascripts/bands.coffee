@@ -16,3 +16,5 @@ $(document).on 'ready page:load', ->
       input.attr('value', label)
     else if log
       alert(log)
+
+  $('input:checkbox#remove_header, input:checkbox#band_active').bootstrapSwitch();
