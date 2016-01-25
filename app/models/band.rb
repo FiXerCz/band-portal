@@ -14,8 +14,8 @@ class Band < ActiveRecord::Base
   has_and_belongs_to_many :genres
 
   accepts_nested_attributes_for :band_roles
-  has_attached_file :header, styles: { large: "1200x450", medium: "800x300>", thumb: "450x200>" },
-                    default_url: "/images/:style/missing.png"
+  has_attached_file :header, styles: {large: "1200x450", thumb: "800x300>" },
+                    default_url: "/assets/:style/noimage.png"
   validates_attachment_content_type :header, content_type: /\Aimage\/.*\Z/
   validate :image_dimensions
   validates :title, :presence => true
@@ -42,12 +42,12 @@ class Band < ActiveRecord::Base
   def image_dimensions
     temp_file = header.queued_for_write[:original]
     unless temp_file.nil?
-      required_width  = 1200
-      required_height = 450
+      required_width  = (1200..2000)
+      required_height = (400..450)
       dimensions = Paperclip::Geometry.from_file(temp_file.path)
 
-      errors.add(:image, "Header width must be #{required_width}px") unless dimensions.width == required_width
-      errors.add(:image, "Header height must be #{required_height}px") unless dimensions.height == required_height
+      errors.add(:image, "Header width must be within #{required_width}px") unless required_width.member? dimensions.width
+      errors.add(:image, "Header height must be within #{required_height}px") unless required_height.member? dimensions.height
     end
   end
 
