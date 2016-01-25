@@ -10,4 +10,19 @@ class Concert < ActiveRecord::Base
 
   has_many :performers, :dependent => :destroy
   has_many :bands, through: :performers
+
+  # RailsAdmin config
+  rails_admin do
+    list do
+      include_fields :title, :location, :bands, :from_date, :to_date
+    end
+
+    show do
+      include_fields :title, :location, :performers, :from_date, :to_date, :price, :capacity
+    end
+
+    edit do
+      exclude_fields :performers
+    end
+  end
 end

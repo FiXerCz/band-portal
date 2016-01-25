@@ -31,6 +31,24 @@ class Band < ActiveRecord::Base
     genres.collect { |x| x.title }.join ' / '
   end
 
+  rails_admin do
+    configure :band_roles do
+      label 'Band members'
+    end
+
+    list do
+      fields :title, :genres, :band_roles, :created_at
+    end
+
+    edit do
+      exclude_fields :performers, :members, :concerts, :comments
+    end
+
+    show do
+      exclude_fields :performers, :members
+    end
+  end
+
   private
 
   def has_at_lest_one_member

@@ -26,6 +26,22 @@ class User < ActiveRecord::Base
     fullname || username || email
   end
 
+  # RailsAdmin config
+  rails_admin do
+    object_label_method do
+      :username_and_email
+    end
+
+    list do
+      include_fields :username, :email, :fullname
+    end
+
+    show do
+      include_fields :username, :email, :fullname, :bands, :favourite_bands
+    end
+  end
+
+  # Devise additional config
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
