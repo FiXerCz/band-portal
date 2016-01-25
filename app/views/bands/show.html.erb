@@ -35,7 +35,7 @@
 <%# HEADER %>
 <% if @band.header.exists? %>
   <% content_for :header do %>
-    <div class="header" style="background-image: url(<%= @band.header.url(:large) %>)"></div>
+    <div class="header" style="background-image: url(<%= @band.header.url(:original) %>)"></div>
   <% end %>
 <% end %>
 
