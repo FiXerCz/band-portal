@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  #resources :albums
+  #resources :songs
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
 
   resources :users, only: [:show,:index]
   resources :bands do
+    resources :albums
+    resources :songs
+
     collection do
       delete 'drop-member/:mid' => 'bands#destroy_member'
     end

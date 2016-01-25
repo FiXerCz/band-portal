@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160124182115) do
+ActiveRecord::Schema.define(version: 20160125111819) do
+
+  create_table "albums", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "released"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "band_id"
+  end
 
   create_table "band_roles", force: :cascade do |t|
     t.string  "role",    null: false
@@ -86,6 +94,15 @@ ActiveRecord::Schema.define(version: 20160124182115) do
 
   add_index "performers", ["band_id"], name: "index_performers_on_band_id"
   add_index "performers", ["concert_id"], name: "index_performers_on_concert_id"
+
+  create_table "songs", force: :cascade do |t|
+    t.string   "title"
+    t.text     "lyrics"
+    t.text     "composer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "band_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

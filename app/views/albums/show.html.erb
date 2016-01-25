@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @album.title %>
+</p>
+
+<p>
+  <strong>Released:</strong>
+  <%= @album.released %>
+</p>
+
+<%= link_to 'Edit', edit_band_album_path(@album.band, @album) %> |
+<%= link_to 'Back', band_albums_path(@album.band) %>
