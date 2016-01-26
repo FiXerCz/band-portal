@@ -133,3 +133,15 @@ ul.band-tabs > li.active > a:focus {
 .band-tabs.tab-content > .active {
     padding-top: 10px;
 }
+
+.thumbnail {
+    padding: 8px;
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.clearfix {
+    top: 35px;
+    position: relative;
+}

@@ -15,12 +15,13 @@
   <div class="row">
     <% bands.each do |band| %>
       <div class="col-sm-6">
-        <div class="thumbnail">
-          <%= image_tag band.header.url(:thumb), :alt => band.header_file_name, :class => 'img-responsive' %>
-          <div class="caption">
+        <% style = 'background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 20%,  rgba(255, 255, 255, 0) 60%),'
+           style2 = 'url( ' << band.header.url(:thumb) << ');'
+        %>
+      <div class="panel panel-default">
+        <div class="thumbnail panel-heading" onmouseover='this.className="thumbnail panel-heading active-header"' onmouseout='this.className="thumbnail panel-heading inactive-header"' style="<%= style << style2 %>" class="img-responsive">
             <h3><%= band.title %><% if !band.active %> <small>inactive</small><% end %></h3>
             <p class="text-muted"><i><%= band.band_genres %></i></p>
-            <p class="text-justify band-description"><%= truncate band.description, :length  => 200, :separator => /\w/, :omission => '...' %></p>
             <div class="clearfix">
               <p class="pull-left text-info"><%= pluralize band.fans.count, 'fan' %></p>
               <p class="pull-right">
@@ -37,10 +38,13 @@
                                 :class => 'btn btn-xs btn-danger', :role => 'button' %>
                 <% end %>
               </p>
-            </div>
           </div>
         </div>
+        <div class="panel-body">
+            <p class="text-justify band-description"><%= truncate band.description, :length  => 125, :separator => /\w/, :omission => '...' %></p>
+        </div>
       </div>
+    </div>
     <% end %>
   </div>
 <% end %>
