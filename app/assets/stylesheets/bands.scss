@@ -38,25 +38,19 @@ p.band-description {
 .thumbnail {
   height: 160px;
   padding: 8px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+29&0.65+0,0+67 */
-  /*background: -moz-linear-gradient(left, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.37) 29%, rgba(0,0,0,0) 67%); /* FF3.6-15 */
-  /*background: -webkit-linear-gradient(left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.37) 29%,rgba(0,0,0,0) 67%); /* Chrome10-25,Safari5.1-6 */
-   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
-  background-size: contain, cover;
   background-repeat: no-repeat, no-repeat;
   transition: all 1s;
 }
 
 .thumbnail h3,
-.thumbnail p {
+.thumbnail p:not(.pull-right) {
   color: white;
+  text-shadow: 1px 0px 3px black;
 }
 
-.thumbnail:focus,
-.thumbnail:hover {
-  //background-image: url(band.header.url(:thumb)) !important;
-  //color: red !important;
+.thumbnail:hover h3,
+.thumbnail:hover p:not(.pull-right)  {
+  opacity: 0.4;
 }
 
 .panel-body {

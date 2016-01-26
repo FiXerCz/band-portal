@@ -15,11 +15,13 @@
   <div class="row">
     <% bands.each do |band| %>
       <div class="col-sm-6">
-        <% style = 'background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 20%,  rgba(255, 255, 255, 0) 60%),'
-           style2 = 'url( ' << band.header.url(:thumb) << ');'
+        <% style = 'background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 20%,  rgba(255, 255, 255, 0) 60%), url( ' << band.header.url(:thumb) << ');'
+           style << 'background-size: contain, cover;'
+           style2 = 'background-image:  url( ' << band.header.url(:thumb) << ');'
+           style2 << 'background-size: cover;'
         %>
       <div class="panel panel-default">
-        <div class="thumbnail panel-heading" onmouseover='this.className="thumbnail panel-heading active-header"' onmouseout='this.className="thumbnail panel-heading inactive-header"' style="<%= style << style2 %>" class="img-responsive">
+        <div class="thumbnail panel-heading inactive-header" onmouseover='this.style="<%= style2 %>"' onmouseout='this.style="<%= style %>"' style="<%= style %>">
             <h3><%= band.title %><% if !band.active %> <small>inactive</small><% end %></h3>
             <p class="text-muted"><i><%= band.band_genres %></i></p>
             <div class="clearfix">
