@@ -1,25 +1,41 @@
-<%= form_for([@album.band, @album]) do |f| %>
-  <% if @album.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
+<%= form_for [@album.band, @album], :html => { :class => "form-horizontal album" } do |f| %>
 
-      <ul>
-      <% @album.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @album.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @album.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="form-group">
+    <%= f.label :title, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
   </div>
-  <div class="field">
-    <%= f.label :released %><br>
-    <%= f.datetime_select :released %>
+  <div class="form-group">
+    <%= f.label :released, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :released, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:released) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                band_albums_path, :class => 'btn btn-default' %>
+    </div>
   </div>
+
 <% end %>
