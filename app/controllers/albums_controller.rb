@@ -44,6 +44,7 @@ class AlbumsController < ApplicationController
   # PATCH/PUT /albums/1.json
   def update
     respond_to do |format|
+      save_albums_songs(album_params[:songs_attributes])
       if @album.update(album_params)
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: [@album.band, @album] }
@@ -74,5 +75,12 @@ class AlbumsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def album_params
       params.require(:album).permit(:title, :released, songs_attributes: [:id, :done, :_destroy])
+    end
+
+    def save_albums_songs(songs_attributes)
+      songs_attributes.each do |_, song_data|
+        song = Song.find(song_data[:id])
+        @album.songs << song unless @album.songs.include? song
+      end
     end
 end
