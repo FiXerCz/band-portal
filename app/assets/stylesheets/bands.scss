@@ -35,21 +35,21 @@ p.band-description {
   display: block;
 }
 
-.thumbnail {
+.band-thumb .thumbnail {
   height: 160px;
   padding: 8px;
   background-repeat: no-repeat, no-repeat;
   transition: all 1s;
 }
 
-.thumbnail h3,
-.thumbnail p:not(.pull-right) {
+.band-thumb .thumbnail h3,
+.band-thumb .thumbnail p:not(.pull-right) {
   color: white;
   text-shadow: 1px 0px 3px black;
 }
 
-.thumbnail:hover h3,
-.thumbnail:hover p:not(.pull-right)  {
+.band-thumb .thumbnail:hover h3,
+.band-thumb .thumbnail:hover p:not(.pull-right)  {
   opacity: 0.4;
 }
 
