@@ -27,10 +27,11 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
     band = Band.find(params[:band_id])
-    @album = band.albums.create(album_params)
+    @album = band.albums.create(albums_no_songs_params)
 
     respond_to do |format|
       if @album.save
+        save_albums_songs(album_params[:songs_attributes])
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: [@album.band, @album] }
       else
@@ -75,6 +76,10 @@ class AlbumsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def album_params
       params.require(:album).permit(:title, :released, songs_attributes: [:id, :done, :_destroy])
+    end
+
+    def albums_no_songs_params
+      params.require(:album).permit(:title, :released)
     end
 
     def save_albums_songs(songs_attributes)
