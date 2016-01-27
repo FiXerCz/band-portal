@@ -29,6 +29,10 @@
   </tbody>
 </table>
 
+<%= link_to t('.back', :default => t("helpers.links.back")),
+            edit_band_path(params[:band_id]),
+            :class => 'btn btn-default' %>
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_band_album_path,
             :class => 'btn btn-primary' %>
