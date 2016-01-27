@@ -18,6 +18,7 @@
 //= require bootstrap-switch
 //= require moment
 //= require bootstrap-datetimepicker
+//= require cocoon
 
 $(document).ready(function() {
     if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');

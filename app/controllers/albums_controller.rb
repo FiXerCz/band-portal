@@ -73,6 +73,6 @@ class AlbumsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def album_params
-      params.require(:album).permit(:title, :released)
+      params.require(:album).permit(:title, :released, songs_attributes: [:id, :done, :_destroy])
     end
 end
