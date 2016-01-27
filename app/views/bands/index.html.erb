@@ -20,7 +20,7 @@
            style2 = 'background-image:  url( ' << band.header.url(:thumb) << ');'
            style2 << 'background-size: cover;'
         %>
-      <div class="panel panel-default">
+      <div class="band-thumb panel panel-default">
         <div class="thumbnail panel-heading inactive-header" onmouseover='this.style="<%= style2 %>"' onmouseout='this.style="<%= style %>"' style="<%= style %>">
             <h3><%= band.title %><% if !band.active %> <small>inactive</small><% end %></h3>
             <p class="text-muted"><i><%= band.band_genres %></i></p>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="panel-body">
-            <p class="text-justify band-description"><%= truncate band.description, :length  => 125, :separator => /\w/, :omission => '...' %></p>
+            <p class="text-justify band-description"><%= truncate band.description, :length  => 70, :separator => /\w/, :omission => '...' %></p>
         </div>
       </div>
     </div>
