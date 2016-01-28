@@ -73,7 +73,9 @@
 </ul>
 
 <div class="tab-content band-tabs">
-  <div class="<%= if (params[:tab] == 'albums' || params[:tab].nil?)then 'tab-pane active'  else 'tab-pane' end%>" id="albums"> Albums </div>
+  <div class="<%= if (params[:tab] == 'albums' || params[:tab].nil?)then 'tab-pane active'  else 'tab-pane' end%>" id="albums">
+      <%= render :partial => 'albums/band_tab' %>
+  </div>
   <div class="<%= if (params[:tab] == 'albums')then 'tab-pane active' else 'tab-pane' end%>" id="concerts" >
 
     <%= check_box_tag(name = "show_past") %>

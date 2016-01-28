@@ -1,0 +1,14 @@
+<h3>All albums</h3>
+<table class="table albums">
+  <tbody>
+  <% @band.albums.each do |album| %>
+      <tr><td>
+        <span style="float:right"><%= album.released.strftime("%e. %B. %Y at %k:%M") %></span>
+        <h3><%= album.title %></h3>
+        <% album.songs.each do |song| %>
+          <p> <%= song.title %> </p>
+        <% end %>
+      </td></tr>
+  <% end %>
+  </tbody>
+</table>
