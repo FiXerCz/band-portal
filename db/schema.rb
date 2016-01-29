@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160125123930) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "albums", force: :cascade do |t|
     t.string   "title"
     t.datetime "released"
@@ -29,8 +26,8 @@ ActiveRecord::Schema.define(version: 20160125123930) do
     t.integer "song_id"
   end
 
-  add_index "albums_songs", ["album_id"], name: "index_albums_songs_on_album_id", using: :btree
-  add_index "albums_songs", ["song_id"], name: "index_albums_songs_on_song_id", using: :btree
+  add_index "albums_songs", ["album_id"], name: "index_albums_songs_on_album_id"
+  add_index "albums_songs", ["song_id"], name: "index_albums_songs_on_song_id"
 
   create_table "band_roles", force: :cascade do |t|
     t.string  "role",    null: false
@@ -38,8 +35,8 @@ ActiveRecord::Schema.define(version: 20160125123930) do
     t.integer "user_id"
   end
 
-  add_index "band_roles", ["band_id"], name: "index_band_roles_on_band_id", using: :btree
-  add_index "band_roles", ["user_id"], name: "index_band_roles_on_user_id", using: :btree
+  add_index "band_roles", ["band_id"], name: "index_band_roles_on_band_id"
+  add_index "band_roles", ["user_id"], name: "index_band_roles_on_user_id"
 
   create_table "bands", force: :cascade do |t|
     t.string   "title"
@@ -58,16 +55,16 @@ ActiveRecord::Schema.define(version: 20160125123930) do
     t.integer "genre_id"
   end
 
-  add_index "bands_genres", ["band_id"], name: "index_bands_genres_on_band_id", using: :btree
-  add_index "bands_genres", ["genre_id"], name: "index_bands_genres_on_genre_id", using: :btree
+  add_index "bands_genres", ["band_id"], name: "index_bands_genres_on_band_id"
+  add_index "bands_genres", ["genre_id"], name: "index_bands_genres_on_genre_id"
 
   create_table "bands_users", id: false, force: :cascade do |t|
     t.integer "band_id"
     t.integer "user_id"
   end
 
-  add_index "bands_users", ["band_id"], name: "index_bands_users_on_band_id", using: :btree
-  add_index "bands_users", ["user_id"], name: "index_bands_users_on_user_id", using: :btree
+  add_index "bands_users", ["band_id"], name: "index_bands_users_on_band_id"
+  add_index "bands_users", ["user_id"], name: "index_bands_users_on_user_id"
 
   create_table "comments", force: :cascade do |t|
     t.text     "text"
@@ -95,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160125123930) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "genres", ["title"], name: "index_genres_on_title", unique: true, using: :btree
+  add_index "genres", ["title"], name: "index_genres_on_title", unique: true
 
   create_table "performers", force: :cascade do |t|
     t.integer "concert_id"
@@ -103,8 +100,8 @@ ActiveRecord::Schema.define(version: 20160125123930) do
     t.boolean "confirmed"
   end
 
-  add_index "performers", ["band_id"], name: "index_performers_on_band_id", using: :btree
-  add_index "performers", ["concert_id"], name: "index_performers_on_concert_id", using: :btree
+  add_index "performers", ["band_id"], name: "index_performers_on_band_id"
+  add_index "performers", ["concert_id"], name: "index_performers_on_concert_id"
 
   create_table "songs", force: :cascade do |t|
     t.string   "title"
@@ -137,8 +134,8 @@ ActiveRecord::Schema.define(version: 20160125123930) do
     t.string   "fullname"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
