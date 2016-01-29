@@ -53,6 +53,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 group :development do
@@ -66,5 +67,4 @@ group :development do
   gem 'letter_opener'
 end
 
-gem 'rails_12factor', group: :production
-ruby "2.2.0"
+ruby "2.2.3"
