@@ -31,7 +31,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        save_albums_songs(album_params[:songs_attributes])
+        save_albums_songs(album_params[:songs_attributes]) unless album_params[:song_attributes].nil?
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: [@album.band, @album] }
       else
@@ -45,7 +45,7 @@ class AlbumsController < ApplicationController
   # PATCH/PUT /albums/1.json
   def update
     respond_to do |format|
-      save_albums_songs(album_params[:songs_attributes])
+      save_albums_songs(album_params[:songs_attributes]) unless album_params[:song_attributes].nil?
       if @album.update(album_params)
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: [@album.band, @album] }
