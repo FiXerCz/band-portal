@@ -50,7 +50,7 @@ label.required:after {
     border-color: #A94442;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075);
 
-@extend .has-error:focus;
+@extend .has-error:focus !optional;
     border-color: #843534;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 6px #CE8483;
 
