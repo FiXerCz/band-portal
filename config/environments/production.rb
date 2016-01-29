@@ -13,7 +13,7 @@ Rails.application.configure do
     :authentication => :login,
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { :host => "https://infinite-garden-5539.herokuapp.com" }
+  config.action_mailer.default_url_options = { :host => "https://shrouded-garden-19399.herokuapp.com" }
 
 
   # Code is not reloaded between requests.
