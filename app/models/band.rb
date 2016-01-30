@@ -17,8 +17,8 @@ class Band < ActiveRecord::Base
   has_and_belongs_to_many :genres
 
   accepts_nested_attributes_for :band_roles
-  has_attached_file :header, styles: { thumb: "800x300#" },
-                    default_url: "/assets/:style/noimage.png"
+  has_attached_file :header, styles: { thumb: "800x300#" }, :storage => :database,
+                    default_url: "/assets/:style/noimage.png", :url => '/:class/:id/:attachment/:style'
   validates_attachment_content_type :header, content_type: /\Aimage\/.*\Z/
   validate :image_dimensions
   validates :title, :presence => true

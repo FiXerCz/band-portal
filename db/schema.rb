@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125123930) do
+ActiveRecord::Schema.define(version: 20160129180250) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title"
@@ -93,6 +93,12 @@ ActiveRecord::Schema.define(version: 20160125123930) do
   end
 
   add_index "genres", ["title"], name: "index_genres_on_title", unique: true
+
+  create_table "headers", force: :cascade do |t|
+    t.integer "band_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
 
   create_table "performers", force: :cascade do |t|
     t.integer "concert_id"

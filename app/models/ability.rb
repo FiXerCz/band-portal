@@ -9,8 +9,8 @@ class Ability
     elsif !user.nil? && user.admin?
       # define abilities of portal admin
       can :manage, :all
-      # can :access, :rails_admin
-      # can :dashboard
+      can :access, :rails_admin
+      can :dashboard
     else
       #  define abilities of a regular signed in user
       can [:read, :create], [Band, Concert, Comment]

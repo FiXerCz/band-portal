@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'add-member' => 'bands#add_member'
       post 'add-member' => 'bands#create_member'
       post 'fan' => 'bands#manage_fan'
+      get 'headers/:style' => 'bands#display_header'
     end
   end
 

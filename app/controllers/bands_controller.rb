@@ -1,8 +1,8 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: [:show, :edit, :update, :destroy,
-                                  :manage_fan, :create_member, :add_member]
-  before_action :authenticate_user!, except: [:index, :show]
-  load_and_authorize_resource
+  before_action :set_band, only: [:show, :edit, :update, :destroy, :manage_fan,
+                                  :create_member, :add_member, :display_header]
+  before_action :authenticate_user!, except: [:index, :show, :display_header]
+  load_and_authorize_resource :except => :display_header
 
   # GET /bands
   # GET /bands.json
@@ -26,6 +26,11 @@ class BandsController < ApplicationController
 
   # GET /bands/1/edit
   def edit
+  end
+
+  def display_header
+    style = params[:style] || 'original'
+    send_data @band.header.file_contents(style), :type => @band.header_content_type, disposition: 'inline'
   end
 
   # POST /bands
