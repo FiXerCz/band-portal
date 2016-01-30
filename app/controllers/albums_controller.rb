@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+  before_action :set_album, only: [:show, :edit, :update, :destroy, :display_image]
 
   # GET /albums
   # GET /albums.json
@@ -23,6 +23,11 @@ class AlbumsController < ApplicationController
   def edit
   end
 
+  def display_image
+    style = params[:style] || 'original'
+    send_data @album.image.file_contents(style), :type => @album.image_content_type, disposition: 'inline'
+  end
+
   # POST /albums
   # POST /albums.json
   def create
@@ -31,7 +36,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        save_albums_songs(album_params[:songs_attributes]) unless album_params[:song_attributes].nil?
+        save_albums_songs(album_params[:songs_attributes]) unless album_params[:songs_attributes].nil?
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: [@album.band, @album] }
       else
@@ -45,7 +50,7 @@ class AlbumsController < ApplicationController
   # PATCH/PUT /albums/1.json
   def update
     respond_to do |format|
-      save_albums_songs(album_params[:songs_attributes]) unless album_params[:song_attributes].nil?
+      save_albums_songs(album_params[:songs_attributes]) unless album_params[:songs_attributes].nil?
       if @album.update(album_params)
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: [@album.band, @album] }
@@ -75,11 +80,11 @@ class AlbumsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def album_params
-      params.require(:album).permit(:title, :released, songs_attributes: [:id, :done, :_destroy])
+      params.require(:album).permit(:title, :released, :image, songs_attributes: [:id, :done, :_destroy])
     end
 
     def albums_no_songs_params
-      params.require(:album).permit(:title, :released)
+      params.require(:album).permit(:title, :released, :image)
     end
 
     def save_albums_songs(songs_attributes)

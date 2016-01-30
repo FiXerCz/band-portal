@@ -39,12 +39,38 @@
       <%= link_to_add_association 'Add song', f, :songs, :class => "btn" %>
     </div>
   </div>
+
   <div class="form-group">
+    <%= f.label :image, :class => 'control-label col-lg-2', 'data-toggle' => 'tooltip', 'data-placement' => 'right',
+                :title => 'Image dimensions: width 1200px, height: 450' %>
+    <div class="col-lg-10">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <span class="btn btn-default btn-file">
+            Browse <%= f.file_field :image %>
+          </span>
+        </span>
+        <input type="text" class="form-control" value="<%= @album.image_file_name || 'click \'Browse\' to select an image' %>" readonly>
+      </div>
+      <%= f.error_span(:image) %>
+
+      <% if @album.image.exists? %>
+        <br />
+        <div class="thumbnail">
+          <%= image_tag band_path + @album.image.url(:thumb), :alt => @album.image_file_name, :class => 'img-responsive' %>
+          <div class="caption text-center">
+            <%= f.check_box_tag :remove_header, 1, false, :data => { 'on-color' => 'danger',  'on-text' => 'Remove',
+                                                                     'off-text' => 'None', 'label-text' => 'Action' } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+ <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 band_albums_path, :class => 'btn btn-default' %>
     </div>
   </div>
-
 <% end %>

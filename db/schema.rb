@@ -11,14 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129180250) do
+ActiveRecord::Schema.define(version: 20160130105000) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title"
     t.datetime "released"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "band_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "albums_songs", id: false, force: :cascade do |t|
@@ -96,6 +100,12 @@ ActiveRecord::Schema.define(version: 20160129180250) do
 
   create_table "headers", force: :cascade do |t|
     t.integer "band_id"
+    t.string  "style"
+    t.binary  "file_contents"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer "album_id"
     t.string  "style"
     t.binary  "file_contents"
   end

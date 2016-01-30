@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show,:index]
   resources :bands do
-    resources :albums
+    resources :albums do
+      member do
+        get 'images/:style' => 'albums#display_image'
+      end
+    end
     resources :songs
 
     collection do
