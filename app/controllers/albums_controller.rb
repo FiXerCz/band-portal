@@ -51,6 +51,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       save_albums_songs(album_params[:songs_attributes]) unless album_params[:songs_attributes].nil?
+      @album.image = nil if params[:remove_header]
       if @album.update(album_params)
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: [@album.band, @album] }
