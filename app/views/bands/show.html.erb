@@ -1,11 +1,11 @@
 <%# SIDEBAR CONTENT %>
 <% content_for :sidebar do %>
-    <h3>Fans <span class="badge"><%= @band.fans.size %></span></h3>
+    <h3><span class="badge-fans">Fans </span> <span class="badge"><%= @band.fans.size %></span></h3>
     <% if @band.fans.blank? %>
-      <p>Nobody likes this band so far. You can use <strong>Like this</strong> button to become its first fan.</p>
+      <p style="clear: both">Nobody likes this band so far. You can use <strong>Like this</strong> button to become its first fan.</p>
     <% else %>
         <% @fans.each_slice(2) do |fans| %>
-          <div class="row">
+          <div class="row" style="clear: both">
             <% fans.each do |fan| %>
               <div class="col-lg-6">
                 <div class="well well-sm text-center"><%= link_to fan.pretty_name, user_path(fan) %></div>
