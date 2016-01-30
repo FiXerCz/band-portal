@@ -1,0 +1,36 @@
+<div class="col-sm-6">
+  <% style = 'background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 20%,  rgba(255, 255, 255, 0) 60%), url( ' << band.header.url(:thumb) << ');'
+     style << 'background-size: contain, cover;'
+     style2 = 'background-image:  url( ' << band.header.url(:thumb) << ');'
+     style2 << 'background-size: cover;'
+  %>
+
+  <div class="band-thumb panel panel-default">
+    <div class="thumbnail panel-heading inactive-header bg" onmouseover='this.style="<%= style2 %>"' onmouseout='this.style="<%= style %>"' style="<%= style %>">
+      <h3><%= band.title %><% if !band.active %> <small>inactive</small><% end %></h3>
+      <p class="text-muted"><i><%= band.band_genres %></i></p>
+      <div class="clearfix">
+        <p class="pull-left text-info"><%= pluralize band.fans.count, 'fan' %></p>
+        <p class="pull-right">
+          <%= link_to 'Details', band_path(band), :class => 'btn btn-xs btn-default', :role => 'button' %>
+          <% if can? :update, band %>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_band_path(band), :class => 'btn btn-default btn-xs', :role => 'button' %>
+          <% end %>
+          <% if can? :destroy, band %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          band_path(band),
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm',
+                                                   :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-xs btn-danger', :role => 'button' %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+    <div class="panel-body">
+      <p class="text-justify band-description"><%= truncate band.description, :length  => 70, :separator => /\w/,
+                                                            :omission => '...' %></p>
+    </div>
+  </div>
+</div>
