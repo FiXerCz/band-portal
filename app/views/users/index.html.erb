@@ -11,12 +11,12 @@
   <div class="row">
     <% users.each do |user| %>
     <div class="col-sm-3">
-      <div class="panel panel-default">
+      <div class="panel panel-default fan-panel">
         <div class="panel-heading">
           <span class="fan-name"><%= link_to user.pretty_name, user_path(user) %></span>
         </div>
         <div class="panel-body" style="min-height: 100px">
-          <p><%= user.email %></p>
+          <p><%= truncate user.email, :length  => 24, :omission => '...' %></p>
           <% if user.band_roles.length > 0 %>
               Member of
               <% if user.band_roles.length == 1 %>
