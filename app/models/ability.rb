@@ -5,7 +5,7 @@ class Ability
     alias_action :create, :read, :update, :destroy, :to => :crud
     if user.nil?
       # define abilities of guest (not logged in)
-      can :read, [Band, Concert, User]
+      can :read, [Band, Concert, User, Album, Song]
     elsif !user.nil? && user.admin?
       # define abilities of portal admin
       can :manage, :all
@@ -18,7 +18,10 @@ class Ability
       can [:update, :destroy], Concert, :user_id => user.id
       can [:update, :destroy], User, :id => user.id
       can [:confirm], Concert
+      can [:read], [Album, Song]
       can [:update, :destroy], Comment, :user_id => user.id
+      #can [:update, :destroy], Album, :user_id => user.id
+      #can [:update, :destroy], Song, :user_id => user.id
     end
   end
 
@@ -38,5 +41,13 @@ class Ability
       band.members.size > 1 && band.members.include?(user)
     end
     can :manage_fan, Band
+    can [:update, :destroy], Album do |album|
+      album.band.members.include?(user)
+    end
+    can [:update, :destroy], Song do |song|
+      song.band.members.include?(user)
+    end
+      can :create, Album
+      can :create, Song
   end
 end

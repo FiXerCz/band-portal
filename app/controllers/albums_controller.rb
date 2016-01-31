@@ -1,5 +1,8 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy, :display_image]
+  before_action :authenticate_user!, except: [:index, :show, :display_image]
+  load_and_authorize_resource :except => :display_image
+
 
   # GET /albums
   # GET /albums.json
