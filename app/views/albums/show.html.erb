@@ -1,9 +1,10 @@
 <%- model_class = Album -%>
-<div class="page-header"></div>
+<div class="page-header">
+  <h1><%= @album.title %> <small>by <%= @album.band.title %></small></h1>
+</div>
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h1><%= @album.title %></h1>
     <%= @album.released.strftime("%e. %B %Y") %>
   </div>
   <div class="panel-body">
@@ -19,7 +20,7 @@
         </dt>
         <dd>
           <% @album.songs.each_with_index do |song, index| %>
-            <p><%= (index + 1).to_s + ". " %> <%= link_to song.title, band_song_path(@album, song) %></p>
+            <p><%= (index + 1).to_s + ". " %> <%= link_to song.title, band_song_path(@album.band, song) %></p>
           <% end %>
         </dd>
       </dl>

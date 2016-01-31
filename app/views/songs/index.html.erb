@@ -1,6 +1,11 @@
 <%- model_class = Song -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <% if can? :create, Song %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_band_song_path,
+                  :class => 'btn btn-primary' %>
+  <% end %>
 </div>
 <table class="table table-striped">
   <thead>
@@ -9,7 +14,7 @@
       <th><%= model_class.human_attribute_name(:lyrics) %></th>
       <th><%= model_class.human_attribute_name(:composer) %></th>
       <% if can? :update, Song or can? :destroy, Song %>
-        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+        <th class="text-right"><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %>
     </tr>
   </thead>
@@ -20,7 +25,7 @@
         <td><%= song.lyrics %></td>
         <td><%= song.composer %></td>
         <% if can? :update, song or can? :destroy, song %>
-        <td>
+        <td class="text-right">
           <% if can? :update, song %>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_band_song_path(song.band, song), :class => 'btn btn-default btn-xs' %>
@@ -42,8 +47,3 @@
 <%= link_to t('.back', :default => t("helpers.links.back")),
             edit_band_path(params[:band_id]),
             :class => 'btn btn-default' %>
-<% if can? :create, Song %>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_band_song_path,
-            :class => 'btn btn-primary' %>
-<% end %>

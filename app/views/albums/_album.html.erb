@@ -1,7 +1,7 @@
 <%- model_class = Album -%>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h2><%= link_to album.title, band_album_path(album.band, album) %></h2>
+    <%= link_to album.title, band_album_path(album.band, album) %>
   </div>
   <div class="panel-body">
     <div class="pull-left">
