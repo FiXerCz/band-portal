@@ -51,7 +51,9 @@
                 <ul class="dropdown-menu">
                   <li class="dropdown-header">User</li>
                   <li><%= link_to 'My profile', user_path(current_user)%></li>
-                  <li><a rel="nofollow" href="#" title="Mozna vubec nevyuzijeme..">Notifications <span class="badge">42</span></a></li>
+                  <% if @notification_count > 0 %>
+                      <li><a rel="nofollow" href="/home/notifications">Notifications <span class="badge"><%= @notification_count %></span></a></li>
+                  <% end %>
                   <li><a rel="nofollow" data-method="delete" href="/users/sign_out">Log out</a></li>
 
                   <% unless current_user.bands.blank? %>

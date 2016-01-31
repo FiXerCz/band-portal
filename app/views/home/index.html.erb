@@ -2,8 +2,10 @@
 
 <% if user_signed_in? %>
 
-  <h2>Notifications</h2>
-  <%= render "home/home" %>
+  <% if @notification_count > 0 %>
+    <h2>Notifications</h2>
+    <%= render "home/home" %>
+  <% end %>
 
   <% if current_user.favourite_bands.empty? && current_user.bands.empty? %>
       <h3><%= link_to "Like your favorite bands", bands_path %> or <%= link_to "start up your own", new_band_path %>! </h3><br>

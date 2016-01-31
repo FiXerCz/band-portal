@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_global_notifications
-    # todo
+    @notification_count = current_user.unconfirmed_concerts.count +
+        current_user.confirmed_concerts.count +
+        current_user.favourite_bands_confirmed_concerts.count if user_signed_in?
   end
 end
