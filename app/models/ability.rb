@@ -20,8 +20,14 @@ class Ability
       can [:confirm], Concert
       can [:read], [Album, Song]
       can [:update, :destroy], Comment, :user_id => user.id
-      #can [:update, :destroy], Album, :user_id => user.id
-      #can [:update, :destroy], Song, :user_id => user.id
+      can [:update, :destroy], Album do |album|
+        album.band.members.include?(user)
+      end
+      can [:update, :destroy], Song do |song|
+        song.band.members.include?(user)
+      end
+      can :create, Album
+      can :create, Song
     end
   end
 
@@ -41,13 +47,5 @@ class Ability
       band.members.size > 1 && band.members.include?(user)
     end
     can :manage_fan, Band
-    can [:update, :destroy], Album do |album|
-      album.band.members.include?(user)
-    end
-    can [:update, :destroy], Song do |song|
-      song.band.members.include?(user)
-    end
-      can :create, Album
-      can :create, Song
   end
 end
