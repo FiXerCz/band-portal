@@ -56,6 +56,7 @@ class AlbumsController < ApplicationController
       save_albums_songs(album_params[:songs_attributes]) unless album_params[:songs_attributes].nil?
       @album.image = nil if params[:remove_header]
       if @album.update(album_params)
+        save_albums_songs(album_params[:songs_attributes]) unless album_params[:songs_attributes].nil?
         format.html { redirect_to [@album.band, @album], notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: [@album.band, @album] }
       else
@@ -93,8 +94,10 @@ class AlbumsController < ApplicationController
 
     def save_albums_songs(songs_attributes)
       songs_attributes.each do |_, song_data|
-        song = Song.find(song_data[:id])
-        @album.songs << song unless @album.songs.include? song
+        if song_data[:id] != "" && song_data[:_destroy] == "false"
+          song = Song.find(song_data[:id])
+          @album.songs << song unless @album.songs.include? song
+        end
       end
     end
 end
