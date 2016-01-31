@@ -31,6 +31,14 @@ class Band < ActiveRecord::Base
     genres.collect { |x| x.title }.join ' / '
   end
 
+  def unconfirmed_upcoming_concerts
+    performers.reject { |p| p.confirmed || p.concert.from_date < DateTime.current }.collect(&:concert)
+  end
+
+  def confirmed_upcoming_concerts
+    performers.select { |p| p.confirmed && p.concert.from_date >= DateTime.current }.collect(&:concert)
+  end
+
   rails_admin do
     configure :band_roles do
       label 'Band members'

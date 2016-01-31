@@ -26,6 +26,29 @@ class User < ActiveRecord::Base
     fullname || username || email
   end
 
+  def unconfirmed_concerts
+    result = bands.map do |band|
+      next if band.unconfirmed_upcoming_concerts.empty?
+      band.unconfirmed_upcoming_concerts.map do |concert|
+        [concert, band]
+      end
+    end
+
+    result.flatten(1).reject(&:nil?)
+  end
+
+  def confirmed_concerts
+    result = bands.map { |band| band.confirmed_upcoming_concerts }.flatten.uniq
+
+    result
+  end
+
+  def favourite_bands_confirmed_concerts
+    result = favourite_bands.map { |band| band.confirmed_upcoming_concerts }.flatten.uniq
+
+    result
+  end
+
   # RailsAdmin config
   rails_admin do
     object_label_method do

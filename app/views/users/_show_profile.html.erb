@@ -2,33 +2,32 @@
 
 <dl>
   <dt><strong><%= model_class.human_attribute_name(:username) %>:</strong> </dt>
-  <dd><%= @user.username %></dd>
-  <% if @user.fullname %>
+  <dd><%= current_user.username %></dd>
+  <% if current_user.fullname %>
     <dt><strong><%= model_class.human_attribute_name(:fullname) %>:</strong></dt>
-    <dd><%= @user.fullname %></dd>
+    <dd><%= current_user.fullname %></dd>
   <% end %>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
-  <dd><%= @user.email %></dd>
-  <% if @user.band_roles.length > 0 %>
+  <dd><%= current_user.email %></dd>
+  <% if current_user.band_roles.length > 0 %>
       <br>
       <dt><strong><%= model_class.human_attribute_name(:member_of) %>:</strong></dt>
-      <% @user.band_roles.each do |role| %>
-          <% band = Band.find(role.band_id)%>
-          <dd><%= link_to band.title, band_path(band) %> (as <%= role.role %>)</dd>
+      <% current_user.band_roles.each do |role| %>
+          <dd><%= link_to role.band.title, band_path(role.band) %> (as <%= role.role %>)</dd>
       <% end %>
   <% end %>
 
-  <% unless @fan.empty? %>
+  <% unless current_user.favourite_bands.empty? %>
       <br>
         <dt><strong><%= model_class.human_attribute_name(:your_favourite_bands) %></strong>:</dt>
-        <% @fan.each do |band|%>
+        <% current_user.favourite_bands.each do |band|%>
             <dd><%= link_to band.title, band_path(band) %></dd>
         <% end %>
   <% end %>
 </dl>
 
 <div class="buttons">
-    <% if can? :update, @user %>
+    <% if can? :update, current_user %>
       <%= link_to t('.edit', :default => t("helpers.links.edit-your-profile")),
                   edit_user_registration_path, :class => 'btn btn-default' %>
   <% end %>
