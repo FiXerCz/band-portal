@@ -4,7 +4,7 @@ class Album < ActiveRecord::Base
 
   belongs_to :band
 
-  has_attached_file :image, styles: { thumb: "400x400#" }, :storage => :database,
+  has_attached_file :image, styles: { thumb: "400x400#", icon: "150x150" }, :storage => :database,
                     default_url: "/assets/:style/noimage.png", :url => '/:class/:id/:attachment/:style'
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
