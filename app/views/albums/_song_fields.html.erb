@@ -1,14 +1,7 @@
-<div class="control-group nested-fields">
-  <div class="col-lg-offset-2">
-    <tr>
-      <td>
-        <%= f.select :id, @album.band.songs.map {|s| [s.title, s.id]},
-                    { include_blank: true }, {:class => 'chosen-select col-lg-4', 'data-placeholder' => 'Select another song'} %>
-        <%=f.error_span(:id) %>
-      </td>
-      <td>
-        <%= link_to_remove_association "Remove", f, :class => "btn btn-default btn-danger" %>
-      </td>
-    </tr>
-  </div>
+<div class="nested-fields" style="margin-bottom: 3px">
+  <%= f.select :id, @album.band.songs.map {|s| [s.title, s.id]},
+              { include_blank: false }, {:class => 'selectpicker show-tick', :title => 'Select another song',
+                                         'data-live-search' => 'true'} %>
+  <%=f.error_span(:id) %>
+  <%= link_to_remove_association 'Remove', f, :class => 'btn btn-default btn-danger' %>
 </div>

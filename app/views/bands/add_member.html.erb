@@ -24,8 +24,9 @@
     <div class="form-group">
       <%= f.label :user_id, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.collection_select(:user_id, User.all - @band.members, :id, :username_and_email, {:include_blank => ''},
-                                {:class => 'chosen-select form-control', 'data-placeholder' => 'Select new member'}) %>
+        <%= f.collection_select(:user_id, User.all - @band.members, :id, :username_and_email, {:include_blank => false},
+                                {:class => 'selectpicker show-tick form-control', :title => 'Select new member',
+                                 'data-live-search' => 'true'}) %>
         <%=f.error_span(:user_id) %>
       </div>
     </div>
