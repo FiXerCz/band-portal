@@ -11,14 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
-//= require_tree .
 //= require bootstrap-switch
 //= require moment
 //= require bootstrap-datetimepicker
 //= require cocoon
+//= require_tree .
+//= require turbolinks
 
 $(document).ready(function() {
     $('.selectpicker').selectpicker({
